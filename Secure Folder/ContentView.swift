@@ -23,9 +23,9 @@ struct ContentView: View {
                         VStack {
                             Image(systemName: "folder.fill")
                                 .font(.system(size: 80))
-                                .foregroundColor(.blue)
+                                .foregroundColor(Color(.systemBlue))
                             Text("Secure Folder")
-                                .font(Font.custom("Baskerville-Bold", size: 26))
+                                .font(.system( size: 26))
                                 .foregroundColor(.black.opacity(0.8))
                         }
                         .scaleEffect(size)
@@ -51,9 +51,9 @@ struct ContentView: View {
                         VStack {
                             Image(systemName: "folder.fill")
                                 .font(.system(size: 80))
-                                .foregroundColor(.blue)
+                                .foregroundColor(Color(.systemBlue))
                             Text("Secure Folder")
-                                .font(Font.custom("Baskerville-Bold", size: 26))
+                                .font(.system( size: 26))
                                 .foregroundColor(.black.opacity(0.8))
                         }
                         .scaleEffect(size)
