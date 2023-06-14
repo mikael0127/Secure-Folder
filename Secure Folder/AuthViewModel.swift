@@ -61,7 +61,11 @@ class AuthViewModel: ObservableObject {
     }
     
     func deleteAccount() throws {
-        
+//        do {
+//
+//        } catch {
+//            print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
+//        }
     }
 
     func fetchUser() async {
