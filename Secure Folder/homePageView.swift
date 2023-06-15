@@ -88,14 +88,14 @@ struct homePageView: View {
                         Text("Profile")
                     }
                     
-                    NavigationView {
-                        Text("Settings Page")
-                            .navigationBarTitle("Settings")
-                    }
-                    .tabItem {
-                        Image(systemName: "gear")
-                        Text("Settings")
-                    }
+//                    NavigationView {
+//                        Text("Settings Page")
+//                            .navigationBarTitle("Settings")
+//                    }
+//                    .tabItem {
+//                        Image(systemName: "gear")
+//                        Text("Settings")
+//                    }
                 }
     }
 }
