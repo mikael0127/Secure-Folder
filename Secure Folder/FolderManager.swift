@@ -16,7 +16,7 @@ class FolderManager {
             if !fileManager.fileExists(atPath: mainFolderURL.path) {
                 try fileManager.createDirectory(at: mainFolderURL, withIntermediateDirectories: true, attributes: nil)
                 
-                let subfolderNames = ["Photos", "Videos", "Documents", "Memories"]
+                let subfolderNames = ["Photos", "Videos", "Documents"]
                 
                 for name in subfolderNames {
                     let subfolderURL = mainFolderURL.appendingPathComponent(name)

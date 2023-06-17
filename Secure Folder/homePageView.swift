@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct homePageView: View {
-        
+    // Add a property to store the selected photos
+    @State private var selectedPhotos: [UIImage] = []
+    
     init() {
         FolderManager.createFolderStructure()
     }
@@ -24,6 +27,17 @@ struct homePageView: View {
                                         /*Button {
                                             print("Photos")
                                         } label: {
+=======
+//                                        Button {
+//
+//                                        } label: {
+//                                            SettingsRowView(imageName: "photo",
+//                                                            title: "Photos",
+//                                                            tintColor:.blue)
+//                                        }
+                                        
+                                        NavigationLink(destination: PhotosView()) {
+>>>>>>> Stashed changes
                                             SettingsRowView(imageName: "photo",
                                                             title: "Photos",
                                                             tintColor:.blue)
@@ -44,6 +58,10 @@ struct homePageView: View {
                                     HStack {
                                         /*Button {
                                             print("Video")
+=======
+                                        Button {
+                                            print("Videos")
+>>>>>>> Stashed changes
                                         } label: {
                                             SettingsRowView(imageName: "video",
                                                             title: "Videos",
@@ -66,6 +84,10 @@ struct homePageView: View {
                                     HStack {
                                         /*Button {
                                             
+=======
+                                        Button {
+                                            print("Documents")
+>>>>>>> Stashed changes
                                         } label: {
                                             SettingsRowView(imageName: "doc",
                                                             title: "Documents",
@@ -83,6 +105,23 @@ struct homePageView: View {
                                           //  .imageScale(.small)
                                             //.font(.title)
                                             //.foregroundColor(.gray)
+                                    }
+                                
+                                    HStack {
+                                        Button {
+                                            print("Contacts")
+                                        } label: {
+                                            SettingsRowView(imageName: "person.crop.circle.fill",
+                                                            title: "Contacts",
+                                                            tintColor:.blue)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        Image(systemName: "arrow.right")
+                                            .imageScale(.small)
+                                            .font(.title)
+                                            .foregroundColor(.gray)
                                     }
                                 }
                             }
