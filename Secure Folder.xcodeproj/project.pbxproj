@@ -20,6 +20,8 @@
 		8C831F562A3D97C800E8820F /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C831F532A3D97C800E8820F /* VideoView.swift */; };
 		8CA8B6952A38EA2400CB29C7 /* homePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA8B6942A38EA2400CB29C7 /* homePageView.swift */; };
 		8CA8B6972A3A53EF00CB29C7 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA8B6962A3A53EF00CB29C7 /* FolderManager.swift */; };
+		8CA8B6992A3B7F9B00CB29C7 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA8B6982A3B7F9B00CB29C7 /* PhotosView.swift */; };
+		8CA8B69B2A3B8C7500CB29C7 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA8B69A2A3B8C7400CB29C7 /* ImagePicker.swift */; };
 		8CB417F52A3875C3007FBE2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */; };
 		8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */; };
 		8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE8F8829E416A9000A52EC /* ContentView.swift */; };
@@ -62,6 +64,9 @@
 		8C831F532A3D97C800E8820F /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		8CA8B6942A38EA2400CB29C7 /* homePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePageView.swift; sourceTree = "<group>"; };
 		8CA8B6962A3A53EF00CB29C7 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
+		8CA8B6982A3B7F9B00CB29C7 /* PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
+		8CA8B69A2A3B8C7400CB29C7 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		8CA8B69C2A3B965A00CB29C7 /* Secure-Folder-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Secure-Folder-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8CBE8F8329E416A9000A52EC /* Secure Folder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Secure Folder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure_FolderApp.swift; sourceTree = "<group>"; };
@@ -137,9 +142,13 @@
 		8CBE8F8529E416A9000A52EC /* Secure Folder */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				8C831F512A3D97C800E8820F /* DocumentView.swift */,
 				8C831F522A3D97C800E8820F /* PhotoView.swift */,
 				8C831F532A3D97C800E8820F /* VideoView.swift */,
+=======
+				8CA8B69C2A3B965A00CB29C7 /* Secure-Folder-Info.plist */,
+>>>>>>> Stashed changes
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */,
 				8CD5BAFA2A3795D7002F0C2E /* InputView.swift */,
@@ -153,8 +162,10 @@
 				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
 				8CA8B6942A38EA2400CB29C7 /* homePageView.swift */,
 				8CA8B6962A3A53EF00CB29C7 /* FolderManager.swift */,
-				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
+				8CA8B6982A3B7F9B00CB29C7 /* PhotosView.swift */,
+				8CA8B69A2A3B8C7400CB29C7 /* ImagePicker.swift */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
+				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 			);
 			path = "Secure Folder";
 			sourceTree = "<group>";
@@ -331,11 +342,16 @@
 				8CD5BB062A3795D7002F0C2E /* AuthViewModel.swift in Sources */,
 				8CD5BB002A3795D7002F0C2E /* ProfileView.swift in Sources */,
 				8CD5BB032A3795D7002F0C2E /* LoginView.swift in Sources */,
+				8CA8B69B2A3B8C7500CB29C7 /* ImagePicker.swift in Sources */,
 				8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */,
 				8CA8B6952A38EA2400CB29C7 /* homePageView.swift in Sources */,
 				8CD5BB012A3795D7002F0C2E /* InputView.swift in Sources */,
+<<<<<<< Updated upstream
 				8C831F562A3D97C800E8820F /* VideoView.swift in Sources */,
 				8C831F542A3D97C800E8820F /* DocumentView.swift in Sources */,
+=======
+				8CA8B6992A3B7F9B00CB29C7 /* PhotosView.swift in Sources */,
+>>>>>>> Stashed changes
 				8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */,
 				8CD5BB052A3795D7002F0C2E /* User.swift in Sources */,
 				8C831F552A3D97C800E8820F /* PhotoView.swift in Sources */,
@@ -503,6 +519,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Secure Folder/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Secure-Folder-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Access to the photo library is required to save photos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the photo library is required to select photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -531,6 +552,11 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Secure Folder/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Secure-Folder-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Access to the photo library is required to save photos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to the photo library is required to select photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
