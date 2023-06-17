@@ -12,94 +12,108 @@ struct RegistrationView: View {
     @State private var fullName = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
-            // Image
-            Image("Audi_Rs7")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 120)
-                .padding(.vertical, 32)
-            
-            // Form fields
-            VStack(spacing: 24) {
-                InputView(text: $email,
-                          title: "Email Address",
-                          placeholder: "name@example.com")
-                .autocapitalization(.none)
-                
-                InputView(text: $fullName,
-                          title: "Full Name",
-                          placeholder: "Enter your name")
-                .autocapitalization(.none)
-                
-                InputView(text: $password,
-                          title: "Password",
-                          placeholder: "Enter your password",
-                          isSecureField: true)
-                
-                ZStack(alignment: .trailing) {
-                    InputView(text: $confirmPassword,
-                              title: "Confirm Password",
-                              placeholder: "Confirm your password",
-                              isSecureField: true)
+        ZStack {
+            VStack {
+                VStack {
+                    // Image
+                    Image(systemName: "folder.fill")
+                        .font(.system(size: 80))
+                        .foregroundColor(.blue)
                     
-                    if !password.isEmpty && !confirmPassword.isEmpty {
-                        if password == confirmPassword {
-                            Image(systemName: "checkmark.circle.fill")
-                                .imageScale(.large)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(.systemGreen))
-                        } else {
-                            Image(systemName: "xmark.circle.fill")
-                                .imageScale(.large)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(.systemRed))
+                    Text("Secure Folder")
+                        .font(.system(size: 26))
+                        .foregroundColor(.black.opacity(0.8))
+                        .padding(.bottom, 32)
+                }
+                
+                // Form fields
+                VStack(spacing: 24) {
+                    InputView(text: $email,
+                              title: "Email Address",
+                              placeholder: "name@example.com")
+                    .autocapitalization(.none)
+                    
+                    InputView(text: $fullName,
+                              title: "Full Name",
+                              placeholder: "Enter your name")
+                    
+                    InputView(text: $password,
+                              title: "Password",
+                              placeholder: "Enter your password",
+                              isSecureField: true)
+                    .autocapitalization(.none)
+                    
+                    ZStack(alignment: .trailing) {
+                        InputView(text: $confirmPassword,
+                                  title: "Confirm Password",
+                                  placeholder: "Confirm your password",
+                                  isSecureField: true)
+                        .autocapitalization(.none)
+                        
+                        if !password.isEmpty && !confirmPassword.isEmpty {
+                            if password == confirmPassword {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(.systemGreen))
+                            } else {
+                                Image(systemName: "xmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(.systemRed))
+                            }
                         }
                     }
                 }
-            }
-            .padding(.horizontal)
-            .padding(.top, 12)
+                .padding(.horizontal)
+                .padding(.top, 12)
+                
+                Button {
+                    Task {
+                        try await viewModel.createUser(withEmail: email,
+                                                       password: password,
+                                                       fullname: fullName)
+                    }
+                } label: {
+                    HStack {
+                        Text("SIGN UP")
+                            .fontWeight(.semibold)
+                        Image(systemName: "arrow.right")
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                }
+                .background(Color(.systemBlue))
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1.0 : 0.5)
+                .cornerRadius(10)
+                .padding(.top,24)
             
-            Button {
-                Task {
-                    try await viewModel.createUser(withEmail: email,
-                                                   password: password,
-                                                   fullname: fullName)
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 3) {
+                        Text("Already have an account?")
+                        Text("Sign in").fontWeight(.bold)
+                    }
+                    .font(.system(size: 14))
                 }
-            } label: {
-                HStack {
-                    Text("SIGN UP")
-                        .fontWeight(.semibold)
-                    Image(systemName: "arrow.right")
-                }
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 48)
             }
-            .background(Color(.systemBlue))
-            .disabled(!formIsValid)
-            .opacity(formIsValid ? 1.0 : 0.5)
-            .cornerRadius(10)
-            .padding(.top,24)
-        
-            Spacer()
             
-            Button {
-                dismiss()
-            } label: {
-                HStack(spacing: 3) {
-                    Text("Already have an account?")
-                    Text("Sign in").fontWeight(.bold)
-                }
-                .font(.system(size: 14))
+            if viewModel.isLoading {
+                CustomProgressView()
             }
         }
-            
-            
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Error"),
+                  message: Text(viewModel.authError?.description ?? ""))
+        }
     }
 }
 
@@ -111,14 +125,15 @@ extension RegistrationView: AuthenticationFormProtocol {
         return !email.isEmpty
         && email.contains("@")
         && !password.isEmpty
-        && password.count > 5
-        && confirmPassword == password
         && !fullName.isEmpty
+        && password == confirmPassword
+        && password.count > 5
     }
 }
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
         RegistrationView()
+            .environmentObject(AuthViewModel())
     }
 }

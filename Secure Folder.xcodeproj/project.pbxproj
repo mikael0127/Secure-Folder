@@ -28,6 +28,9 @@
 		8CD4745D2A3D9D100064784D /* homePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745A2A3D9D0F0064784D /* homePageView.swift */; };
 		8CD474602A3D9D280064784D /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745E2A3D9D280064784D /* PhotoView.swift */; };
 		8CD474612A3D9D280064784D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745F2A3D9D280064784D /* VideoView.swift */; };
+		8CD474652A3E254E0064784D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474642A3E254E0064784D /* ResetPasswordView.swift */; };
+		8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474662A3E2AB40064784D /* CustomProgressView.swift */; };
+		8CD4746B2A3E2F240064784D /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4746A2A3E2F240064784D /* AuthError.swift */; };
 		8CD5BB002A3795D7002F0C2E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */; };
 		8CD5BB012A3795D7002F0C2E /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFA2A3795D7002F0C2E /* InputView.swift */; };
 		8CD5BB022A3795D7002F0C2E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */; };
@@ -73,6 +76,9 @@
 		8CD4745A2A3D9D0F0064784D /* homePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homePageView.swift; sourceTree = "<group>"; };
 		8CD4745E2A3D9D280064784D /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		8CD4745F2A3D9D280064784D /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		8CD474642A3E254E0064784D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		8CD474662A3E2AB40064784D /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		8CD4746A2A3E2F240064784D /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8CD5BAFA2A3795D7002F0C2E /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -148,11 +154,14 @@
 				8CD5BAFC2A3795D7002F0C2E /* LoginView.swift */,
 				8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */,
 				8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */,
+				8CD474662A3E2AB40064784D /* CustomProgressView.swift */,
 				8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */,
 				8CD5BAFE2A3795D7002F0C2E /* User.swift */,
 				8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */,
 				8CBE8F8829E416A9000A52EC /* ContentView.swift */,
 				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
+				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
+				8CD4746A2A3E2F240064784D /* AuthError.swift */,
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
 			);
@@ -331,9 +340,12 @@
 				8CD5BB062A3795D7002F0C2E /* AuthViewModel.swift in Sources */,
 				8CD5BB002A3795D7002F0C2E /* ProfileView.swift in Sources */,
 				8CD5BB032A3795D7002F0C2E /* LoginView.swift in Sources */,
+				8CD474652A3E254E0064784D /* ResetPasswordView.swift in Sources */,
 				8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */,
 				8CD5BB012A3795D7002F0C2E /* InputView.swift in Sources */,
+				8CD4746B2A3E2F240064784D /* AuthError.swift in Sources */,
 				8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */,
+				8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */,
 				8CD474612A3D9D280064784D /* VideoView.swift in Sources */,
 				8CD5BB052A3795D7002F0C2E /* User.swift in Sources */,
 				8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */,

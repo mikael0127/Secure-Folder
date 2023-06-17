@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 import FirebaseFirestoreSwift
 
 protocol AuthenticationFormProtocol {
@@ -17,36 +18,54 @@ protocol AuthenticationFormProtocol {
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
+    @Published var authError: AuthError?
+    @Published var showAlert = false
+    @Published var isLoading = false
     
     // to check if the user is current logged in
     init() {
         self.userSession = Auth.auth().currentUser
         
         Task {
+            isLoading = true
             await fetchUser()
+            isLoading = false
         }
     }
     
     func signIn(withEmail email: String, password: String) async throws {
+        isLoading = true
+        
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             await fetchUser()
+            isLoading = false
         } catch {
-            print("DEBUG: Failed to log in with error \(error.localizedDescription)")
+            let authError = AuthErrorCode.Code(rawValue: (error as NSError).code)
+            self.showAlert = true
+            self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
+            isLoading = false
         }
     }
     
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
+        isLoading = true
+        
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             let user = User(id: result.user.uid, fullname: fullname, email: email)
-            let encodedUser = try Firestore.Encoder().encode(user)
-            try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+            guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
+            try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser)
             await fetchUser()
+            isLoading = false
         } catch {
-            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
+            let authError = AuthErrorCode.Code(rawValue: (error as NSError).code)
+            self.showAlert = true
+            self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
+            isLoading = false
+
         }
     }
     
@@ -60,18 +79,30 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func deleteAccount() throws {
-//        do {
-//
-//        } catch {
-//            print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
-//        }
+    func deleteAccount() async throws {
+        do {
+            try await Auth.auth().currentUser?.delete()
+            deleteUserData()
+            self.currentUser = nil
+            self.userSession = nil
+        } catch {
+            print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
+        }
     }
-
+    
+    func sendResetPasswordLink(toEmail email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email)
+    }
+    
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
-        self.currentUser = try? snapshot.data(as: User.self)
-        print("DEBUG: Current user is \(self.currentUser)")
+        let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument()
+        guard let user = try? snapshot?.data(as: User.self) else { return }
+        self.currentUser = user
+    }
+    
+    func deleteUserData() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("users").document(uid).delete()
     }
 }

@@ -15,11 +15,13 @@ struct InputView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            // title
             Text(title)
                 .foregroundColor(Color(.darkGray))
                 .fontWeight(.semibold)
                 .font(.footnote)
             
+            // text field
             if isSecureField {
                 SecureField(placeholder, text: $text)
                     .font(.system(size: 14))
@@ -28,6 +30,7 @@ struct InputView: View {
                     .font(.system(size: 14))
             }
             
+            // divider
             Divider()
         }
     }
@@ -35,6 +38,6 @@ struct InputView: View {
 
 struct InputView_Previews: PreviewProvider {
     static var previews: some View {
-        InputView(text: .constant(""), title: "Email Address", placeholder: "name@example.com")
+        InputView(text: .constant(""), title: "Email", placeholder: "name@example.com")
     }
 }

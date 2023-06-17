@@ -22,7 +22,7 @@ struct SplashScreenView: View {
                         .font(.system(size: 80))
                         .foregroundColor(.blue)
                     Text("Secure Folder")
-                        .font(Font.custom("Baskerville-Bold", size: 26))
+                        .font(.system(size: 26))
                         .foregroundColor(.black.opacity(0.8))
                 }
                 .scaleEffect(size)
