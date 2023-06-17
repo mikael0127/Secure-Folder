@@ -15,6 +15,9 @@
 		8C62593D2A36F93D00F647BA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8C62593C2A36F93D00F647BA /* FirebaseCrashlytics */; };
 		8C62593F2A36F93D00F647BA /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C62593E2A36F93D00F647BA /* FirebaseDatabaseSwift */; };
 		8C6259412A36F93D00F647BA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6259402A36F93D00F647BA /* FirebaseFirestoreSwift */; };
+		8C831F542A3D97C800E8820F /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C831F512A3D97C800E8820F /* DocumentView.swift */; };
+		8C831F552A3D97C800E8820F /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C831F522A3D97C800E8820F /* PhotoView.swift */; };
+		8C831F562A3D97C800E8820F /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C831F532A3D97C800E8820F /* VideoView.swift */; };
 		8CA8B6952A38EA2400CB29C7 /* homePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA8B6942A38EA2400CB29C7 /* homePageView.swift */; };
 		8CA8B6972A3A53EF00CB29C7 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA8B6962A3A53EF00CB29C7 /* FolderManager.swift */; };
 		8CB417F52A3875C3007FBE2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */; };
@@ -54,6 +57,9 @@
 /* Begin PBXFileReference section */
 		8C62592F2A36EAF600F647BA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		8C6259312A36F5BD00F647BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Secure Folder/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8C831F512A3D97C800E8820F /* DocumentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
+		8C831F522A3D97C800E8820F /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		8C831F532A3D97C800E8820F /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		8CA8B6942A38EA2400CB29C7 /* homePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePageView.swift; sourceTree = "<group>"; };
 		8CA8B6962A3A53EF00CB29C7 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
 		8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -131,6 +137,9 @@
 		8CBE8F8529E416A9000A52EC /* Secure Folder */ = {
 			isa = PBXGroup;
 			children = (
+				8C831F512A3D97C800E8820F /* DocumentView.swift */,
+				8C831F522A3D97C800E8820F /* PhotoView.swift */,
+				8C831F532A3D97C800E8820F /* VideoView.swift */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */,
 				8CD5BAFA2A3795D7002F0C2E /* InputView.swift */,
@@ -325,8 +334,11 @@
 				8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */,
 				8CA8B6952A38EA2400CB29C7 /* homePageView.swift in Sources */,
 				8CD5BB012A3795D7002F0C2E /* InputView.swift in Sources */,
+				8C831F562A3D97C800E8820F /* VideoView.swift in Sources */,
+				8C831F542A3D97C800E8820F /* DocumentView.swift in Sources */,
 				8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */,
 				8CD5BB052A3795D7002F0C2E /* User.swift in Sources */,
+				8C831F552A3D97C800E8820F /* PhotoView.swift in Sources */,
 				8CD5BB022A3795D7002F0C2E /* RegistrationView.swift in Sources */,
 				8CA8B6972A3A53EF00CB29C7 /* FolderManager.swift in Sources */,
 				8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */,
