@@ -24,24 +24,6 @@ struct homePageView: View {
                         List {
                             Section {
                                     HStack {
-                                        /*Button {
-                                            print("Photos")
-                                        } label: {
-=======
-//                                        Button {
-//
-//                                        } label: {
-//                                            SettingsRowView(imageName: "photo",
-//                                                            title: "Photos",
-//                                                            tintColor:.blue)
-//                                        }
-                                        
-                                        NavigationLink(destination: PhotosView()) {
->>>>>>> Stashed changes
-                                            SettingsRowView(imageName: "photo",
-                                                            title: "Photos",
-                                                            tintColor:.blue)
-                                        }*/
                                         NavigationLink(destination: PhotoView(), label: {
                                             SettingsRowView(imageName: "photo",
                                                             title: "Photos",
@@ -56,17 +38,6 @@ struct homePageView: View {
                                     }
                                     
                                     HStack {
-                                        /*Button {
-                                            print("Video")
-=======
-                                        Button {
-                                            print("Videos")
->>>>>>> Stashed changes
-                                        } label: {
-                                            SettingsRowView(imageName: "video",
-                                                            title: "Videos",
-                                                            tintColor:.blue)
-                                        }*/
                                         NavigationLink(destination: VideoView(), label: {
                                             SettingsRowView(imageName: "video",
                                                             title: "Videos",
@@ -82,17 +53,6 @@ struct homePageView: View {
                                     }
                                     
                                     HStack {
-                                        /*Button {
-                                            
-=======
-                                        Button {
-                                            print("Documents")
->>>>>>> Stashed changes
-                                        } label: {
-                                            SettingsRowView(imageName: "doc",
-                                                            title: "Documents",
-                                                            tintColor:.blue)
-                                        }*/
                                         NavigationLink(destination: DocumentView(), label: {
                                             SettingsRowView(imageName: "doc",
                                                             title: "Documents",
