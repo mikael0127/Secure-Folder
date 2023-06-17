@@ -21,54 +21,68 @@ struct homePageView: View {
                         List {
                             Section {
                                     HStack {
-                                        Button {
+                                        /*Button {
                                             print("Photos")
                                         } label: {
                                             SettingsRowView(imageName: "photo",
                                                             title: "Photos",
                                                             tintColor:.blue)
-                                        }
-                                        
+                                        }*/
+                                        NavigationLink(destination: PhotoView(), label: {
+                                            SettingsRowView(imageName: "photo",
+                                                            title: "Photos",
+                                                            tintColor:.blue)
+                                        })
                                         Spacer()
                                         
-                                        Image(systemName: "arrow.right")
-                                            .imageScale(.small)
-                                            .font(.title)
-                                            .foregroundColor(.gray)
+                                        //Image(systemName: "arrow.right")
+                                        //    .imageScale(.small)
+                                        //    .font(.title)
+                                        //    .foregroundColor(.gray)
                                     }
                                     
                                     HStack {
-                                        Button {
+                                        /*Button {
                                             print("Video")
                                         } label: {
                                             SettingsRowView(imageName: "video",
                                                             title: "Videos",
                                                             tintColor:.blue)
-                                        }
+                                        }*/
+                                        NavigationLink(destination: VideoView(), label: {
+                                            SettingsRowView(imageName: "video",
+                                                            title: "Videos",
+                                                            tintColor:.blue)
+                                        })
                                         
                                         Spacer()
                                         
-                                        Image(systemName: "arrow.right")
-                                            .imageScale(.small)
-                                            .font(.title)
-                                            .foregroundColor(.gray)
+                                        //Image(systemName: "arrow.right")
+                                         //   .imageScale(.small)
+                                         //   .font(.title)
+                                         //   .foregroundColor(.gray)
                                     }
                                     
                                     HStack {
-                                        Button {
-                                            print("Document")
+                                        /*Button {
+                                            
                                         } label: {
                                             SettingsRowView(imageName: "doc",
                                                             title: "Documents",
                                                             tintColor:.blue)
-                                        }
+                                        }*/
+                                        NavigationLink(destination: DocumentView(), label: {
+                                            SettingsRowView(imageName: "doc",
+                                                            title: "Documents",
+                                                            tintColor:.blue)
+                                        })
                                         
                                         Spacer()
                                         
-                                        Image(systemName: "arrow.right")
-                                            .imageScale(.small)
-                                            .font(.title)
-                                            .foregroundColor(.gray)
+                                        //Image(systemName: "arrow.right")
+                                          //  .imageScale(.small)
+                                            //.font(.title)
+                                            //.foregroundColor(.gray)
                                     }
                                 }
                             }
