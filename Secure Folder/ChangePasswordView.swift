@@ -32,12 +32,28 @@ struct ChangePasswordView: View {
             .autocapitalization(.none)
             .padding(.bottom, 16)
             
-            InputView(text: $confirmPassword,
-                      title: "Confirm Password",
-                      placeholder: "Confirm password",
-                      isSecureField: true)
-            .autocapitalization(.none)
-            .padding(.bottom, 16)
+            ZStack(alignment: .trailing) {
+                InputView(text: $confirmPassword,
+                          title: "Confirm Password",
+                          placeholder: "Confirm your password",
+                          isSecureField: true)
+                .autocapitalization(.none)
+                .padding(.bottom, 16)
+                
+                if !newPassword.isEmpty && !confirmPassword.isEmpty {
+                    if newPassword == confirmPassword {
+                        Image(systemName: "checkmark.circle.fill")
+                            .imageScale(.large)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(.systemGreen))
+                    } else {
+                        Image(systemName: "xmark.circle.fill")
+                            .imageScale(.large)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(.systemRed))
+                    }
+                }
+            }
             
             Button(action: {
                 authViewModel.changePassword(
