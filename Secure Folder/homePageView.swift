@@ -9,11 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct homePageView: View {
-    // Add a property to store the selected photos
-    @State private var selectedPhotos: [UIImage] = []
     
     init() {
-        //FolderManager.createFolderStructure()
+        FolderManager.createFolderStructure()
     }
     
     var body: some View {
@@ -29,13 +27,6 @@ struct homePageView: View {
                                                             title: "Photos",
                                                             tintColor:.blue)
                                         })
-                                        
-                                        Spacer()
-                                        
-                                        //Image(systemName: "arrow.right")
-                                        //    .imageScale(.small)
-                                        //    .font(.title)
-                                        //    .foregroundColor(.gray)
                                     }
                                     
                                     HStack {
@@ -44,13 +35,6 @@ struct homePageView: View {
                                                             title: "Videos",
                                                             tintColor:.blue)
                                         })
-                                        
-                                        Spacer()
-                                        
-                                        //Image(systemName: "arrow.right")
-                                         //   .imageScale(.small)
-                                         //   .font(.title)
-                                         //   .foregroundColor(.gray)
                                     }
                                     
                                     HStack {
@@ -59,31 +43,7 @@ struct homePageView: View {
                                                             title: "Documents",
                                                             tintColor:.blue)
                                         })
-                                        
-                                        Spacer()
-                                        
-                                        //Image(systemName: "arrow.right")
-                                          //  .imageScale(.small)
-                                            //.font(.title)
-                                            //.foregroundColor(.gray)
                                     }
-                                
-//                                    HStack {
-//                                        Button {
-//                                            print("Contacts")
-//                                        } label: {
-//                                            SettingsRowView(imageName: "person.crop.circle.fill",
-//                                                            title: "Contacts",
-//                                                            tintColor:.blue)
-//                                        }
-//                                        
-//                                        Spacer()
-//                                        
-//                                        Image(systemName: "arrow.right")
-//                                            .imageScale(.small)
-//                                            .font(.title)
-//                                            .foregroundColor(.gray)
-//                                    }
                                 }
                             }
                             .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))

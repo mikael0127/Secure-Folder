@@ -27,11 +27,6 @@ struct LoginView: View {
                             .foregroundColor(.black.opacity(0.8))
                             .padding(.bottom, 32)
                     }
-//                    Image("Audi_Rs7")
-//                        .resizable()
-//                        .scaledToFill()
-//                        .frame(width: 100, height: 120)
-//                        .padding(.vertical, 32)
                     
                     // Form fields
                     VStack(spacing: 24) {
