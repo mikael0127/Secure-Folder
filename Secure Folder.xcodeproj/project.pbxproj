@@ -39,6 +39,7 @@
 		8CD5BB052A3795D7002F0C2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFE2A3795D7002F0C2E /* User.swift */; };
 		8CD5BB062A3795D7002F0C2E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */; };
 		8CEAD2302A40BF34003423DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEAD22F2A40BF34003423DB /* Foundation.framework */; };
+		8CEAD24F2A42EBE1003423DB /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		8CD5BAFE2A3795D7002F0C2E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8CEAD22F2A40BF34003423DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				8CBE8F8829E416A9000A52EC /* ContentView.swift */,
 				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
 				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
+				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
 				8CD4746A2A3E2F240064784D /* AuthError.swift */,
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
@@ -367,6 +370,7 @@
 				8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */,
 				8CD4745D2A3D9D100064784D /* homePageView.swift in Sources */,
 				8CD4745B2A3D9D100064784D /* FolderManager.swift in Sources */,
+				8CEAD24F2A42EBE1003423DB /* ChangePasswordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

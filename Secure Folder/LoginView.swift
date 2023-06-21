@@ -91,9 +91,10 @@ struct LoginView: View {
                     } label: {
                         HStack(spacing: 3) {
                             Text("Don't have an account?")
+                                .foregroundColor(Color(.systemGray))
                             Text("Sign up").fontWeight(.bold)
                         }
-                        .font(.system(size: 14))
+                        .font(.system(size: 15))
                     }
                 }
                 .alert(isPresented: $viewModel.showAlert) {

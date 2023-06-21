@@ -95,7 +95,6 @@ struct homePageView: View {
                     
                     NavigationView {
                         ProfileView()
-                            //.navigationBarTitle(Text("Profile").fontWeight(.semibold))
                     }
                     .tabItem {
                         Image(systemName: "person")

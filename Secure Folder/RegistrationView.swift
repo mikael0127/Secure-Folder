@@ -100,9 +100,10 @@ struct RegistrationView: View {
                 } label: {
                     HStack(spacing: 3) {
                         Text("Already have an account?")
+                            .foregroundColor(Color(.systemGray))
                         Text("Sign in").fontWeight(.bold)
                     }
-                    .font(.system(size: 14))
+                    .font(.system(size: 15))
                 }
             }
             

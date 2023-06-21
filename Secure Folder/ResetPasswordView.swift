@@ -60,6 +60,7 @@ struct ResetPasswordView: View {
                     Text("Back to Login")
                         .fontWeight(.semibold)
                 }
+                .font(.system(size: 15))
             }
         }
     }

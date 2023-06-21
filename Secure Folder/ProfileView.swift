@@ -53,6 +53,15 @@ struct ProfileView: View {
                         }
                         
                         Section("Account") {
+                            NavigationLink(
+                                destination: ChangePasswordView().environmentObject(viewModel),
+                                label: {
+                                    SettingsRowView(imageName: "lock.rotation",
+                                                    title: "Change Password",
+                                                    tintColor: Color(.systemGray))
+                                }
+                            )
+                            
                             Button {
                                 viewModel.signOut()
                             } label: {

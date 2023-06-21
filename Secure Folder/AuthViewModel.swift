@@ -105,4 +105,34 @@ class AuthViewModel: ObservableObject {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Firestore.firestore().collection("users").document(uid).delete()
     }
+    
+    func changePassword(currentPassword: String, newPassword: String, confirmPassword: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not found"])))
+            return
+        }
+        
+        // Validate new password and confirm password match
+        guard newPassword == confirmPassword else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Passwords don't match"])))
+            return
+        }
+        
+        // Reauthenticate the user with their current password
+        let credential = EmailAuthProvider.credential(withEmail: user.email ?? "", password: currentPassword)
+        user.reauthenticate(with: credential) { _, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                // Change the password
+                user.updatePassword(to: newPassword) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
+            }
+        }
+    }
 }
