@@ -38,6 +38,7 @@
 		8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */; };
 		8CD5BB052A3795D7002F0C2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFE2A3795D7002F0C2E /* User.swift */; };
 		8CD5BB062A3795D7002F0C2E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */; };
+		8CEAD2302A40BF34003423DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEAD22F2A40BF34003423DB /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		8CD5BAFE2A3795D7002F0C2E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		8CEAD22F2A40BF34003423DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				8C62593D2A36F93D00F647BA /* FirebaseCrashlytics in Frameworks */,
 				8C6259352A36F93D00F647BA /* FirebaseAnalytics in Frameworks */,
 				8C62593B2A36F93D00F647BA /* FirebaseAuth in Frameworks */,
+				8CEAD2302A40BF34003423DB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +130,7 @@
 				8CBE8F9629E416AD000A52EC /* Secure FolderTests */,
 				8CBE8FA029E416AD000A52EC /* Secure FolderUITests */,
 				8CBE8F8429E416A9000A52EC /* Products */,
+				8CEAD22E2A40BF33003423DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,7 +152,6 @@
 				8CD474592A3D9D0F0064784D /* DocumentView.swift */,
 				8CD474582A3D9D0F0064784D /* FolderManager.swift */,
 				8CD4745A2A3D9D0F0064784D /* homePageView.swift */,
-				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */,
 				8CD5BAFA2A3795D7002F0C2E /* InputView.swift */,
 				8CD5BAFC2A3795D7002F0C2E /* LoginView.swift */,
@@ -163,6 +166,7 @@
 				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
 				8CD4746A2A3E2F240064784D /* AuthError.swift */,
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
+				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
 			);
 			path = "Secure Folder";
@@ -192,6 +196,14 @@
 				8CBE8FA329E416AD000A52EC /* Secure_FolderUITestsLaunchTests.swift */,
 			);
 			path = "Secure FolderUITests";
+			sourceTree = "<group>";
+		};
+		8CEAD22E2A40BF33003423DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8CEAD22F2A40BF34003423DB /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -527,6 +539,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "test.Secure-Folder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -555,6 +570,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "test.Secure-Folder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

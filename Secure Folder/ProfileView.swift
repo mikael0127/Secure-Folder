@@ -79,6 +79,7 @@ struct ProfileView: View {
                 CustomProgressView()
             }
         }
+        .navigationBarTitle(Text("Profile").fontWeight(.semibold))
     }
 }
 

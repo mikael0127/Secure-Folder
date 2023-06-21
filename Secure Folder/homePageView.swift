@@ -13,7 +13,7 @@ struct homePageView: View {
     @State private var selectedPhotos: [UIImage] = []
     
     init() {
-        FolderManager.createFolderStructure()
+        //FolderManager.createFolderStructure()
     }
     
     var body: some View {
@@ -29,6 +29,7 @@ struct homePageView: View {
                                                             title: "Photos",
                                                             tintColor:.blue)
                                         })
+                                        
                                         Spacer()
                                         
                                         //Image(systemName: "arrow.right")
@@ -67,22 +68,22 @@ struct homePageView: View {
                                             //.foregroundColor(.gray)
                                     }
                                 
-                                    HStack {
-                                        Button {
-                                            print("Contacts")
-                                        } label: {
-                                            SettingsRowView(imageName: "person.crop.circle.fill",
-                                                            title: "Contacts",
-                                                            tintColor:.blue)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        Image(systemName: "arrow.right")
-                                            .imageScale(.small)
-                                            .font(.title)
-                                            .foregroundColor(.gray)
-                                    }
+//                                    HStack {
+//                                        Button {
+//                                            print("Contacts")
+//                                        } label: {
+//                                            SettingsRowView(imageName: "person.crop.circle.fill",
+//                                                            title: "Contacts",
+//                                                            tintColor:.blue)
+//                                        }
+//                                        
+//                                        Spacer()
+//                                        
+//                                        Image(systemName: "arrow.right")
+//                                            .imageScale(.small)
+//                                            .font(.title)
+//                                            .foregroundColor(.gray)
+//                                    }
                                 }
                             }
                             .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))
@@ -94,7 +95,7 @@ struct homePageView: View {
                     
                     NavigationView {
                         ProfileView()
-                            .navigationBarTitle(Text("Profile").fontWeight(.semibold))
+                            //.navigationBarTitle(Text("Profile").fontWeight(.semibold))
                     }
                     .tabItem {
                         Image(systemName: "person")
