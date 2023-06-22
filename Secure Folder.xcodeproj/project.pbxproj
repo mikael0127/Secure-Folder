@@ -125,6 +125,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8CA2DB8F2A440EDF003C1D70 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8CD5BAFA2A3795D7002F0C2E /* InputView.swift */,
+				8CD474662A3E2AB40064784D /* CustomProgressView.swift */,
+				8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8CA2DB912A440F3E003C1D70 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8CBE8F8829E416A9000A52EC /* ContentView.swift */,
+				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
+				8CD5BAFC2A3795D7002F0C2E /* LoginView.swift */,
+				8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */,
+				8CD4745A2A3D9D0F0064784D /* homePageView.swift */,
+				8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */,
+				8CD4745E2A3D9D280064784D /* PhotoView.swift */,
+				8CD4745F2A3D9D280064784D /* VideoView.swift */,
+				8CD474592A3D9D0F0064784D /* DocumentView.swift */,
+				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
+				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8CA2DB932A440F53003C1D70 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */,
+				8CD4746A2A3E2F240064784D /* AuthError.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		8CA2DB942A440FF4003C1D70 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		8CBE8F7A29E416A9000A52EC = {
 			isa = PBXGroup;
 			children = (
@@ -149,25 +194,12 @@
 		8CBE8F8529E416A9000A52EC /* Secure Folder */ = {
 			isa = PBXGroup;
 			children = (
-				8CD4745E2A3D9D280064784D /* PhotoView.swift */,
-				8CD4745F2A3D9D280064784D /* VideoView.swift */,
-				8CD474592A3D9D0F0064784D /* DocumentView.swift */,
+				8CA2DB942A440FF4003C1D70 /* Root */,
+				8CA2DB932A440F53003C1D70 /* Authentication */,
+				8CA2DB912A440F3E003C1D70 /* Views */,
+				8CA2DB8F2A440EDF003C1D70 /* Components */,
 				8CD474582A3D9D0F0064784D /* FolderManager.swift */,
-				8CD4745A2A3D9D0F0064784D /* homePageView.swift */,
-				8CD5BAFF2A3795D7002F0C2E /* AuthViewModel.swift */,
-				8CD5BAFA2A3795D7002F0C2E /* InputView.swift */,
-				8CD5BAFC2A3795D7002F0C2E /* LoginView.swift */,
-				8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */,
-				8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */,
-				8CD474662A3E2AB40064784D /* CustomProgressView.swift */,
-				8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */,
 				8CD5BAFE2A3795D7002F0C2E /* User.swift */,
-				8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */,
-				8CBE8F8829E416A9000A52EC /* ContentView.swift */,
-				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
-				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
-				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
-				8CD4746A2A3E2F240064784D /* AuthError.swift */,
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
