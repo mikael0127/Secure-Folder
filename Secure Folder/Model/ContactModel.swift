@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct ContactModel: Identifiable {
+struct ContactModel: Identifiable, Codable {
     let id = UUID()
     let givenName: String
     let familyName: String
     let phoneNumbers: [String]
 }
+

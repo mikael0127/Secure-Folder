@@ -4,23 +4,29 @@
 //
 //  Created by Mikael Denys Wijaya on 22/06/23.
 //
+//
+
 
 import SwiftUI
 import Contacts
 import ContactsUI
 
-
 class ContactPickerDelegate: NSObject, ObservableObject, CNContactPickerDelegate {
     var selectedContacts: [CNContact] = []
     @Published var importedContacts: [ContactModel] = []
+
+    override init() {
+        super.init()
+        loadContacts()
+    }
 
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
         selectedContacts = contacts
         importSelectedContacts()
     }
-    
+
     func importSelectedContacts() {
-        var importedContacts = self.importedContacts  // Get the existing imported contacts
+        var importedContacts = self.importedContacts
 
         for contact in selectedContacts {
             let givenName = contact.givenName
@@ -28,14 +34,50 @@ class ContactPickerDelegate: NSObject, ObservableObject, CNContactPickerDelegate
             let phoneNumbers = contact.phoneNumbers.map { $0.value.stringValue }
 
             let newContact = ContactModel(givenName: givenName, familyName: familyName, phoneNumbers: phoneNumbers)
-            importedContacts.append(newContact)  // Append newly imported contacts to the existing array
+            importedContacts.append(newContact)
         }
 
-        // Save the imported contacts
-        saveContacts(importedContacts)
-
-        // Update the importedContacts array with all imported contacts
         self.importedContacts = importedContacts
+        saveContacts(importedContacts)
+    }
+
+    func loadContacts() {
+        // Access the documents directory
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+
+        // Access the "MainFolder"
+        let mainFolderURL = documentsDirectory?.appendingPathComponent("MainFolder")
+        
+        // Access the subfolder "contacts" inside "MainFolder"
+        let contactsFolderURL = mainFolderURL?.appendingPathComponent("Contacts")
+        
+        // Append the file name to the subfolder URL
+        let filePath = contactsFolderURL?.appendingPathComponent("contacts.txt")
+        
+        do {
+            let contactsText = try String(contentsOf: filePath!, encoding: .utf8)
+            let contactLines = contactsText.components(separatedBy: .newlines)
+
+            var importedContacts: [ContactModel] = []
+
+            for line in contactLines {
+                let components = line.components(separatedBy: ":")
+                if components.count == 2 {
+                    let name = components[0]
+                    let numbers = components[1].components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+                    let nameComponents = name.components(separatedBy: " ")
+                    let givenName = nameComponents.first ?? ""
+                    let familyName = nameComponents.last ?? ""
+
+                    let newContact = ContactModel(givenName: givenName, familyName: familyName, phoneNumbers: numbers)
+                    importedContacts.append(newContact)
+                }
+            }
+
+            self.importedContacts = importedContacts
+        } catch {
+            print("Failed to load contacts: \(error.localizedDescription)")
+        }
     }
 }
 
@@ -44,7 +86,6 @@ struct ContactListView: View {
 
     var body: some View {
         VStack {
-            
             List(pickerDelegate.importedContacts, id: \.id) { contact in
                 VStack(alignment: .leading) {
                     Text("\(contact.givenName) \(contact.familyName)")
@@ -54,7 +95,7 @@ struct ContactListView: View {
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            
+
             Button(action: {
                 showContactPicker()
             }) {
@@ -65,12 +106,13 @@ struct ContactListView: View {
                     .padding(.horizontal, 12)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    
             }
             .padding(.vertical, 32)
         }
         .navigationTitle(Text("Contacts List").font(.title))
-        
+        .onAppear {
+            pickerDelegate.loadContacts()
+        }
     }
 
     private func showContactPicker() {
