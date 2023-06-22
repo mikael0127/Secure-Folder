@@ -8,13 +8,34 @@
 import Foundation
 import SwiftUI
 
+enum PickerType: Identifiable {
+    case photo, file, contact
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct PhotoView: View {
+    
+    @State private var actionSheetVisible = false
+    @State private var pickerType: PickerType?
+    
+    @State private var selectedImage: UIImage?
+    
     
     var body: some View {
         
         NavigationStack {
+            
             Button("Add New Photo(s)") {
-                print("New")
+                self.actionSheetVisible = true
+                
+            }
+            .confirmationDialog("Select a type", isPresented: self.$actionSheetVisible) {
+                Button("Photo") {
+                    self.pickerType = .photo
+                }
             }
                 .navigationTitle("Photos")
                 .toolbar {
@@ -34,6 +55,20 @@ struct PhotoView: View {
                         }
                     }
                 }
+        }
+        .sheet(item: self.$pickerType, onDismiss: {print("dismiss")}) {item in
+            switch item {
+            case .photo:
+                ImagePicker(image:self.$selectedImage)
+            case .file:
+                NavigationView {
+                    Text("file")
+                }
+            case .contact:
+                NavigationView {
+                    Text("contact")
+                }
+            }
         }
         
     }
