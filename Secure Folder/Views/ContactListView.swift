@@ -37,49 +37,6 @@ class ContactPickerDelegate: NSObject, ObservableObject, CNContactPickerDelegate
         // Update the importedContacts array with all imported contacts
         self.importedContacts = importedContacts
     }
-
-    
-//    func importSelectedContacts() {
-//        var importedContacts = [ContactModel]()
-//
-//        for contact in selectedContacts {
-//            let givenName = contact.givenName
-//            let familyName = contact.familyName
-//            let phoneNumbers = contact.phoneNumbers.map { $0.value.stringValue }
-//
-//            let newContact = ContactModel(givenName: givenName, familyName: familyName, phoneNumbers: phoneNumbers)
-//            importedContacts.append(newContact)
-//        }
-//
-//        // Save the imported contacts
-//        saveContacts(importedContacts)
-//
-//        // Update the importedContacts array with imported contacts
-//        self.importedContacts = importedContacts
-//    }
-
-    func saveContacts(_ contacts: [ContactModel]) {
-        // Perform the necessary operations to save the contacts into a folder
-        // This could involve writing the contact information to a file or storing it in a database
-        // Here, you can use FileManager to create a file and save the contacts
-
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let filePath = documentsDirectory?.appendingPathComponent("contacts.txt")
-
-        var contactsText = ""
-
-        for contact in contacts {
-            let contactText = "\(contact.givenName) \(contact.familyName): \(contact.phoneNumbers.joined(separator: ", "))"
-            contactsText += contactText + "\n"
-        }
-
-        do {
-            try contactsText.write(to: filePath!, atomically: true, encoding: .utf8)
-            print("Contacts saved to file: \(filePath!.path)")
-        } catch {
-            print("Failed to save contacts: \(error.localizedDescription)")
-        }
-    }
 }
 
 struct ContactListView: View {

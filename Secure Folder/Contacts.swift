@@ -78,15 +78,20 @@ func importContacts() {
 }
 
 func saveContacts(_ contacts: [ContactModel]) {
-    // Perform the necessary operations to save the contacts into a folder
-    // This could involve writing the contact information to a file or storing it in a database
-    // Here, you can use FileManager to create a file and save the contacts
-    
+    // Access the documents directory
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-    let filePath = documentsDirectory?.appendingPathComponent("contacts.txt")
+
+    // Access the "MainFolder"
+    let mainFolderURL = documentsDirectory?.appendingPathComponent("MainFolder")
+    
+    // Access the subfolder "contacts" inside "MainFolder"
+    let contactsFolderURL = mainFolderURL?.appendingPathComponent("Contacts")
+    
+    // Append the file name to the subfolder URL
+    let filePath = contactsFolderURL?.appendingPathComponent("contacts.txt")
     
     var contactsText = ""
-    
+
     for contact in contacts {
         let contactText = "\(contact.givenName) \(contact.familyName): \(contact.phoneNumbers.joined(separator: ", "))"
         contactsText += contactText + "\n"
@@ -99,4 +104,7 @@ func saveContacts(_ contacts: [ContactModel]) {
         print("Failed to save contacts: \(error.localizedDescription)")
     }
 }
+
+
+
 
