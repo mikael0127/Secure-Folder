@@ -2,69 +2,45 @@
 //  ImagePicker.swift
 //  Secure Folder
 //
-//  Created by Mikael Denys Wijaya on 16/06/23.
+//  Created by Bryan Loh on 21/6/23.
 //
 
+import Foundation
 import SwiftUI
-import PhotosUI
 
 struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var selectedPhotos: [UIImage]
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
     
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 0 // Set to 0 for unlimited selection
-        
-        let picker = PHPickerViewController(configuration: configuration)
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var image: UIImage?
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         return picker
     }
-    
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self)
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+
     }
     
-    final class Coordinator: NSObject, PHPickerViewControllerDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: ImagePicker
-        
-        init(parent: ImagePicker) {
+
+        init(_ parent: ImagePicker) {
             self.parent = parent
         }
         
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.selectedPhotos.removeAll()
-            
-            for result in results {
-                if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-                        if let image = image as? UIImage {
-                            DispatchQueue.main.async {
-                                self?.parent.selectedPhotos.append(image)
-                            }
-                        }
-                    }
-                }
-            }
-            
-            parent.selectedPhotos = parent.selectedPhotos.uniqued()
-            picker.dismiss(animated: true, completion: nil)
-        }
-    }
-}
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.image = uiImage
 
-extension Array where Element: Equatable {
-    func uniqued() -> [Element] {
-        var uniqueElements: [Element] = []
-        
-        for element in self {
-            if !uniqueElements.contains(element) {
-                uniqueElements.append(element)
             }
+            parent.presentationMode.wrappedValue.dismiss()
         }
         
-        return uniqueElements
     }
+    
 }

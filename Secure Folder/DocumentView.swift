@@ -8,13 +8,27 @@
 import Foundation
 import SwiftUI
 
+
+
 struct DocumentView: View {
+    
+    @State private var actionSheetVisible = false
+    @State private var pickerType: PickerType?
+    @State private var selectedType: PickerType?
+    
+    @State private var selectedDocument: Data?
+    @State private var selectedDocumentText: String?
     
     var body: some View {
         
         NavigationStack {
             Button("Add New Document(s)") {
-                print("New")
+                self.actionSheetVisible = true
+            }
+            .confirmationDialog("Select a type", isPresented: self.$actionSheetVisible) {
+                Button("File") {
+                    self.pickerType = .file
+                }
             }
                 .navigationTitle("Documents")
                 .toolbar {
@@ -34,6 +48,21 @@ struct DocumentView: View {
                         }
                     }
                 }
+        }
+        .sheet(item: self.$pickerType,onDismiss: {print("dismiss")}) {item in
+            switch item {
+            case .photo:
+                NavigationView {
+                    Text("photo")
+                }
+            case .file:
+                FilePicker(file:self.$selectedDocument,
+                           fileName:self.$selectedDocumentText)
+            case .contact:
+                NavigationView {
+                    Text("contact")
+                }
+            }
         }
         
     }
