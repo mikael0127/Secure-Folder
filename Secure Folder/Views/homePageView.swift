@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CryptoKit
 
 struct homePageView: View {
 
@@ -54,6 +55,11 @@ struct homePageView: View {
                     }
                 }
                 .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        lockButton
+                    }
+                }
             }
             .tabItem {
                 Image(systemName: "house")
@@ -67,6 +73,40 @@ struct homePageView: View {
                 Image(systemName: "person")
                 Text("Profile")
             }
+        }
+    }
+    @ViewBuilder
+    private var lockButton: some View {
+        Button(action: {
+            // Handle lock button tap here
+        }) {
+            Image(systemName: "lock.fill")
+        }
+    }
+    
+    func encryptDocumentsFolder() {
+        let key = SymmetricKey(size: .bits256)
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let folderPath = documentsDirectory.appendingPathComponent("FolderToEncrypt").path
+        
+        do {
+            try encryptFolder(atPath: folderPath, withKey: key)
+            print("Folder encryption completed.")
+        } catch {
+            print("Error encrypting folder: \(error)")
+        }
+    }
+    
+    func decryptDocumentsFolder() {
+        let key = SymmetricKey(size: .bits256)
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let folderPath = documentsDirectory.appendingPathComponent("FolderToDecrypt").path
+        
+        do {
+            try decryptFolder(atPath: folderPath, withKey: key)
+            print("Folder decryption completed.")
+        } catch {
+            print("Error decrypting folder: \(error)")
         }
     }
 }

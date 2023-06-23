@@ -20,6 +20,7 @@
 		8CA2DB9A2A443D80003C1D70 /* ContactListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DB992A443D80003C1D70 /* ContactListView.swift */; };
 		8CA2DB9D2A4445D6003C1D70 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */; };
 		8CA2DB9E2A4445D6003C1D70 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */; };
+		8CA2DBA52A458951003C1D70 /* EncryptionDecryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */; };
 		8CB417F52A3875C3007FBE2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */; };
 		8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */; };
 		8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE8F8829E416A9000A52EC /* ContentView.swift */; };
@@ -72,6 +73,7 @@
 		8CA2DB992A443D80003C1D70 /* ContactListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListView.swift; sourceTree = "<group>"; };
 		8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionDecryption.swift; sourceTree = "<group>"; };
 		8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8CBE8F8329E416A9000A52EC /* Secure Folder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Secure Folder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure_FolderApp.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
+				8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */,
 			);
 			path = "Secure Folder";
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				8CA2DB9E2A4445D6003C1D70 /* ImagePicker.swift in Sources */,
 				8CEAD24F2A42EBE1003423DB /* ChangePasswordView.swift in Sources */,
 				8CA2DB982A443AFA003C1D70 /* Contacts.swift in Sources */,
+				8CA2DBA52A458951003C1D70 /* EncryptionDecryption.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
