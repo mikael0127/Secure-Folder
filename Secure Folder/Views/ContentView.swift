@@ -18,7 +18,7 @@ struct ContentView: View {
             if viewModel.userSession != nil {
                 if isActive {
                     //ProfileView()
-                    homePageView()
+                    HomePageView()
                 } else {
                     VStack {
                         VStack {

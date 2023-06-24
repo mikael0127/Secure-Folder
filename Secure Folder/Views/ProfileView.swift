@@ -53,6 +53,15 @@ struct ProfileView: View {
                         }
                         
                         Section("Account") {
+//                            NavigationLink(
+//                                destination: CreatePasswordInAppView(),
+//                                label: {
+//                                    SettingsRowView(imageName: "lock.rotation",
+//                                                    title: "Create Password",
+//                                                    tintColor: Color(.systemGray))
+//                                }
+//                            )
+                            
                             NavigationLink(
                                 destination: ChangePasswordView().environmentObject(viewModel),
                                 label: {

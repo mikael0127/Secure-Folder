@@ -20,7 +20,7 @@ struct VideoView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         HStack{
-                            NavigationLink(destination: homePageView(), label: {
+                            NavigationLink(destination: HomePageView(), label: {
                                 Text("Back")
                             })
                             
