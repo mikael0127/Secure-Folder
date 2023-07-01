@@ -18,6 +18,23 @@ extension FileManager {
     }
 }
 
+//func encryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
+//    let fileManager = FileManager.default
+//    let folderURL = URL(fileURLWithPath: path)
+//    let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
+//
+//    for fileURL in fileURLs {
+//        if fileManager.isDirectory(url: fileURL) {
+//            try encryptFolder(atPath: fileURL.path, withKey: key)
+//        }
+//    }
+//
+//    let mainFolderURL = URL(fileURLWithPath: path)
+//    let encryptedFolderURL = mainFolderURL.appendingPathExtension("encrypted")
+//
+//    try fileManager.moveItem(at: mainFolderURL, to: encryptedFolderURL)
+//}
+
 func encryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     let fileManager = FileManager.default
     let folderURL = URL(fileURLWithPath: path)
@@ -26,6 +43,12 @@ func encryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     for fileURL in fileURLs {
         if fileManager.isDirectory(url: fileURL) {
             try encryptFolder(atPath: fileURL.path, withKey: key)
+        } else {
+            let encryptedFileURL = fileURL.appendingPathExtension("encrypted")
+            try encryptFile(atPath: fileURL.path, toPath: encryptedFileURL.path, withKey: key)
+
+            // Remove the original unencrypted file
+            try fileManager.removeItem(at: fileURL)
         }
     }
 
@@ -35,6 +58,40 @@ func encryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     try fileManager.moveItem(at: mainFolderURL, to: encryptedFolderURL)
 }
 
+
+func encryptFile(atPath sourcePath: String, toPath destinationPath: String, withKey key: SymmetricKey) throws {
+    let sourceURL = URL(fileURLWithPath: sourcePath)
+    let destinationURL = URL(fileURLWithPath: destinationPath)
+
+    let data = try Data(contentsOf: sourceURL)
+    let encryptedData = try ChaChaPoly.seal(data, using: key).combined
+
+    try encryptedData.write(to: destinationURL)
+}
+
+//func decryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
+//    let fileManager = FileManager.default
+//    let folderURL = URL(fileURLWithPath: path)
+//    let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
+//
+//    for fileURL in fileURLs {
+//        if fileManager.isDirectory(url: fileURL) {
+//            try decryptFolder(atPath: fileURL.path, withKey: key)
+//        }
+//    }
+//
+//    let encryptedFolderURL = URL(fileURLWithPath: path)
+//    let decryptedFolderURL = encryptedFolderURL.deletingPathExtension()
+//
+//    let tempFolderURL = encryptedFolderURL.appendingPathExtension("temp")
+//
+//    // Move the decrypted folder to a temporary location
+//    try fileManager.moveItem(at: encryptedFolderURL, to: tempFolderURL)
+//
+//    // Move the decrypted folder from the temporary location to the original location
+//    try fileManager.moveItem(at: tempFolderURL, to: decryptedFolderURL)
+//}
+
 func decryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     let fileManager = FileManager.default
     let folderURL = URL(fileURLWithPath: path)
@@ -43,6 +100,12 @@ func decryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     for fileURL in fileURLs {
         if fileManager.isDirectory(url: fileURL) {
             try decryptFolder(atPath: fileURL.path, withKey: key)
+        } else {
+            let decryptedFileURL = fileURL.deletingPathExtension()
+            try decryptFile(atPath: fileURL.path, toPath: decryptedFileURL.path, withKey: key)
+
+            // Remove the original encrypted file
+            try fileManager.removeItem(at: fileURL)
         }
     }
 
@@ -56,6 +119,18 @@ func decryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
 
     // Move the decrypted folder from the temporary location to the original location
     try fileManager.moveItem(at: tempFolderURL, to: decryptedFolderURL)
+}
+
+
+func decryptFile(atPath sourcePath: String, toPath destinationPath: String, withKey key: SymmetricKey) throws {
+    let sourceURL = URL(fileURLWithPath: sourcePath)
+    let destinationURL = URL(fileURLWithPath: destinationPath)
+
+    let encryptedData = try Data(contentsOf: sourceURL)
+    let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedData)
+    let decryptedData = try ChaChaPoly.open(sealedBox, using: key)
+
+    try decryptedData.write(to: destinationURL)
 }
 
 func encryptDocumentsFolder(withPassword password: String) {

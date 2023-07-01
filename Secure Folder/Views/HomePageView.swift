@@ -19,8 +19,10 @@ struct HomePageView: View {
 
         if isMainFolderPresent {
             isLocked = false // Set isLocked to false if "MainFolder" exists
+            print("MainFolder Present")
         } else if isEncryptedFolderPresent {
             isLocked = true // Set isLocked to true if "MainFolder.encrypted" exists
+            print("MainFolder.encrypted Present")
         } else {
             FolderManager.createFolderStructure()
             isLocked = false // Set isLocked to false after creating the folder structure
