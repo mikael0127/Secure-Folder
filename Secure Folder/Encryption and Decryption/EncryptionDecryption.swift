@@ -18,22 +18,6 @@ extension FileManager {
     }
 }
 
-//func encryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
-//    let fileManager = FileManager.default
-//    let folderURL = URL(fileURLWithPath: path)
-//    let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
-//
-//    for fileURL in fileURLs {
-//        if fileManager.isDirectory(url: fileURL) {
-//            try encryptFolder(atPath: fileURL.path, withKey: key)
-//        }
-//    }
-//
-//    let mainFolderURL = URL(fileURLWithPath: path)
-//    let encryptedFolderURL = mainFolderURL.appendingPathExtension("encrypted")
-//
-//    try fileManager.moveItem(at: mainFolderURL, to: encryptedFolderURL)
-//}
 
 func encryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     let fileManager = FileManager.default
@@ -69,28 +53,6 @@ func encryptFile(atPath sourcePath: String, toPath destinationPath: String, with
     try encryptedData.write(to: destinationURL)
 }
 
-//func decryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
-//    let fileManager = FileManager.default
-//    let folderURL = URL(fileURLWithPath: path)
-//    let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
-//
-//    for fileURL in fileURLs {
-//        if fileManager.isDirectory(url: fileURL) {
-//            try decryptFolder(atPath: fileURL.path, withKey: key)
-//        }
-//    }
-//
-//    let encryptedFolderURL = URL(fileURLWithPath: path)
-//    let decryptedFolderURL = encryptedFolderURL.deletingPathExtension()
-//
-//    let tempFolderURL = encryptedFolderURL.appendingPathExtension("temp")
-//
-//    // Move the decrypted folder to a temporary location
-//    try fileManager.moveItem(at: encryptedFolderURL, to: tempFolderURL)
-//
-//    // Move the decrypted folder from the temporary location to the original location
-//    try fileManager.moveItem(at: tempFolderURL, to: decryptedFolderURL)
-//}
 
 func decryptFolder(atPath path: String, withKey key: SymmetricKey) throws {
     let fileManager = FileManager.default
@@ -132,6 +94,7 @@ func decryptFile(atPath sourcePath: String, toPath destinationPath: String, with
 
     try decryptedData.write(to: destinationURL)
 }
+
 
 func encryptDocumentsFolder(withPassword password: String) {
     guard let passwordData = password.data(using: .utf8) else {
