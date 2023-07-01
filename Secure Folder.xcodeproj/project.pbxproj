@@ -139,6 +139,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C8CF70C2A509283002A214F /* Encryption and Decryption */ = {
+			isa = PBXGroup;
+			children = (
+				8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */,
+			);
+			path = "Encryption and Decryption";
+			sourceTree = "<group>";
+		};
 		8CA2DB8F2A440EDF003C1D70 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +227,7 @@
 		8CBE8F8529E416A9000A52EC /* Secure Folder */ = {
 			isa = PBXGroup;
 			children = (
+				8C8CF70C2A509283002A214F /* Encryption and Decryption */,
 				8CA2DB9F2A447840003C1D70 /* Model */,
 				8CA2DB942A440FF4003C1D70 /* Root */,
 				8CA2DB932A440F53003C1D70 /* Authentication */,
@@ -231,7 +240,6 @@
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
-				8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */,
 			);
 			path = "Secure Folder";
 			sourceTree = "<group>";

@@ -79,6 +79,11 @@ class ContactPickerDelegate: NSObject, ObservableObject, CNContactPickerDelegate
             print("Failed to load contacts: \(error.localizedDescription)")
         }
     }
+    
+    func deleteContact(at indexSet: IndexSet) {
+        importedContacts.remove(atOffsets: indexSet)
+        saveContacts(importedContacts)
+    }
 }
 
 struct ContactListView: View {
@@ -86,13 +91,16 @@ struct ContactListView: View {
 
     var body: some View {
         VStack {
-            List(pickerDelegate.importedContacts, id: \.id) { contact in
-                VStack(alignment: .leading) {
-                    Text("\(contact.givenName) \(contact.familyName)")
-                    ForEach(contact.phoneNumbers, id: \.self) { phoneNumber in
-                        Text(phoneNumber)
+            List {
+                ForEach(pickerDelegate.importedContacts) { contact in
+                    VStack(alignment: .leading) {
+                        Text("\(contact.givenName) \(contact.familyName)")
+                        ForEach(contact.phoneNumbers, id: \.self) { phoneNumber in
+                            Text(phoneNumber)
+                        }
                     }
                 }
+                .onDelete(perform: pickerDelegate.deleteContact) // Enable deletion
             }
             .listStyle(InsetGroupedListStyle())
 
@@ -110,6 +118,7 @@ struct ContactListView: View {
             .padding(.vertical, 32)
         }
         .navigationTitle(Text("Contacts List").font(.title))
+        .navigationBarItems(trailing: EditButton()) // Enable edit mode
         .onAppear {
             pickerDelegate.loadContacts()
         }
@@ -127,4 +136,5 @@ struct ContactListView_Previews: PreviewProvider {
         ContactListView()
     }
 }
+
 

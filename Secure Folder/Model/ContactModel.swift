@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ContactModel: Identifiable, Codable {
+struct ContactModel: Identifiable, Codable, Equatable {
     let id = UUID()
     let givenName: String
     let familyName: String

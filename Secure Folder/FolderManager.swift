@@ -31,4 +31,9 @@ class FolderManager {
             print("Failed to create folder structure: \(error)")
         }
     }
+    
+    static func isDecryptedFolderPresent() -> Bool {
+        let decryptedFolderPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MainFolder")
+        return FileManager.default.fileExists(atPath: decryptedFolderPath.path)
+    }
 }

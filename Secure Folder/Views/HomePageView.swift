@@ -6,27 +6,26 @@
 //
 //
 
+
 import SwiftUI
-// Current issue is that when you go to any page and go back to homepage the lockbutton disappears
 
 struct HomePageView: View {
-    @State private var isLocked = true // State variable to track folder lock status
+    @AppStorage("isLocked") private var isLocked = true // Use @AppStorage to persist the isLocked value
     let password = "MySecurePassword123"
 
     init() {
         FolderManager.createFolderStructure()
+        isLocked = !FolderManager.isDecryptedFolderPresent()
     }
 
     var body: some View {
         NavigationView {
-            Group {
-                if isLocked {
-                    lockedView() // Display locked view if folder is locked
-                } else {
-                    unlockedView() // Display unlocked view if folder is unlocked
-                }
+            if isLocked {
+                lockedView() // Display locked view if folder is locked
+                    .navigationBarHidden(true)
+            } else {
+                unlockedView() // Display unlocked view if folder is unlocked
             }
-            .navigationBarHidden(true)
         }
     }
 
@@ -63,42 +62,37 @@ struct HomePageView: View {
             NavigationView {
                 List {
                     Section {
-                        HStack {
-                            NavigationLink(destination: PhotoView(), label: {
-                                SettingsRowView(imageName: "photo",
-                                                title: "Photos",
-                                                tintColor:.blue)
-                            })
+                        NavigationLink(destination: PhotoView()) {
+                            SettingsRowView(imageName: "photo",
+                                            title: "Photos",
+                                            tintColor:.blue)
                         }
 
-                        HStack {
-                            NavigationLink(destination: VideoView(), label: {
-                                SettingsRowView(imageName: "video",
-                                                title: "Videos",
-                                                tintColor:.blue)
-                            })
+                        NavigationLink(destination: VideoView()) {
+                            SettingsRowView(imageName: "video",
+                                            title: "Videos",
+                                            tintColor:.blue)
                         }
 
-                        HStack {
-                            NavigationLink(destination: DocumentView(), label: {
-                                SettingsRowView(imageName: "doc",
-                                                title: "Documents",
-                                                tintColor:.blue)
-                            })
+                        NavigationLink(destination: DocumentView()) {
+                            SettingsRowView(imageName: "doc",
+                                            title: "Documents",
+                                            tintColor:.blue)
                         }
 
-                        HStack {
-                            NavigationLink(destination: ContactListView(), label: {
-                                SettingsRowView(imageName: "person.crop.circle.fill",
-                                                title: "Contacts",
-                                                tintColor:.blue)
-                            })
-
+                        NavigationLink(destination: ContactListView()) {
+                            SettingsRowView(imageName: "person.crop.circle.fill",
+                                            title: "Contacts",
+                                            tintColor:.blue)
                         }
                     }
                 }
                 .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))
-                .navigationBarItems(trailing: lockButton) // Add lock button to the navigation bar
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        lockButton
+                    }
+                }
             }
             .tabItem {
                 Image(systemName: "house")
@@ -113,24 +107,24 @@ struct HomePageView: View {
                 Text("Profile")
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
+
     // Lock button in the top-right corner
     var lockButton: some View {
-        HStack {
-            Spacer() // Add a spacer to push the button to the right
-            Button(action: {
-                isLocked.toggle() // Lock the folder
-                if isLocked {
-                    encryptDocumentsFolder(withPassword: password) // Encrypt the folder when locking
-                }
-            }) {
-                Image(systemName: "lock.open.fill")
-                    .font(.title)
-                    .imageScale(.medium)
+        Button(action: {
+            isLocked.toggle() // Lock or unlock the folder
+            if isLocked {
+                encryptDocumentsFolder(withPassword: password) // Encrypt the folder when locking
+            } else {
+                decryptDocumentsFolder(withPassword: password) // Decrypt the folder when unlocking
             }
-            .padding(.trailing)
-            .padding(.top, 90)
+        }) {
+            Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
+                .font(.title)
+                .imageScale(.medium)
         }
+        .padding(.trailing)
     }
 }
 
@@ -139,3 +133,4 @@ struct HomePageView_Previews: PreviewProvider {
         HomePageView()
     }
 }
+
