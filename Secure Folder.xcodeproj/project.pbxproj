@@ -172,6 +172,7 @@
 				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
 				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
 				8CA2DB992A443D80003C1D70 /* ContactListView.swift */,
+				8CA2DBA62A46180D003C1D70 /* CreatePasswordInAppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,7 +206,6 @@
 		8CBE8F7A29E416A9000A52EC = {
 			isa = PBXGroup;
 			children = (
-				8CA2DBA62A46180D003C1D70 /* CreatePasswordInAppView.swift */,
 				8CBE8F8529E416A9000A52EC /* Secure Folder */,
 				8CBE8F9629E416AD000A52EC /* Secure FolderTests */,
 				8CBE8FA029E416AD000A52EC /* Secure FolderUITests */,
