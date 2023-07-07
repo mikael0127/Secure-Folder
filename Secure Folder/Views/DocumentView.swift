@@ -9,6 +9,13 @@ import Foundation
 import SwiftUI
 
 
+enum PickerType: Identifiable {
+    case photo, file, contact
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 struct DocumentView: View {
     
