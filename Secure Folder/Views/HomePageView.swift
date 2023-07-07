@@ -9,13 +9,14 @@
 import SwiftUI
 import Security
 
-
 struct HomePageView: View {
     // Use @AppStorage to persist the isLocked value
     @AppStorage("isLocked") private var isLocked = true
     @AppStorage("isPasswordCreated") private var isPasswordCreated = false
+    @State private var password = ""
     @State private var passwordInKeychain: String = ""
     @State private var isFolderStateInitialized = false
+    @State private var showAlert = false
     
     init() {
         if let storedPassword = getPasswordFromKeychain() {
@@ -70,14 +71,29 @@ struct HomePageView: View {
                         .font(.system(size: 80))
                         .foregroundColor(.red)
                         .padding()
+                    
                     Text("Folder is locked")
                         .font(.title)
                         .fontWeight(.semibold)
                         .padding()
+                    
+                    InputView(text: $password,
+                              title: "Password",
+                              placeholder: "Enter your password",
+                              isSecureField: true)
+                        .autocapitalization(.none)
+                        .padding(.horizontal)
+                    
                     Button(action: {
-                        isLocked.toggle() // Unlock the folder
-                        if !isLocked {
-                            decryptDocumentsFolder(withPassword: passwordInKeychain) // Decrypt the folder when unlocking
+                        if let storedPassword = getPasswordFromKeychain(), password == storedPassword {
+                            isLocked.toggle() // Unlock the folder
+                            if !isLocked {
+                                decryptDocumentsFolder(withPassword: passwordInKeychain) // Decrypt the folder when unlocking
+                            }
+                            password = "" // Reset the password to an empty string
+                        } else {
+                            // Show the pop-up alert for incorrect password
+                            showAlert = true
                         }
                     }) {
                         Text("Unlock")
@@ -87,6 +103,13 @@ struct HomePageView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Incorrect Password"), message: Text("The entered password is incorrect."), dismissButton: .default(Text("OK")))
+                    }
+                    .padding(.bottom, 20) // Add padding to move the button down
+                    .padding(.top, -10) // Add negative padding to balance the spacing
+                    
+                    Spacer()
                 }
                 .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))
                 .toolbar {
@@ -181,6 +204,7 @@ struct HomePageView: View {
                 .imageScale(.medium)
         }
         .padding(.trailing)
+        .disabled(isLocked) // Disable the lock button when the folder is locked
     }
     
     // Delete button
@@ -208,7 +232,7 @@ struct HomePageView: View {
                 print("Retrieved password from Keychain: \(password)") // Print the password
                 return password
             }
-        } 
+        }
         
         return nil
     }
@@ -221,7 +245,6 @@ struct HomePageView: View {
         ]
         
         let status = SecItemDelete(query as CFDictionary)
-        
         if status == errSecSuccess {
             print("Password deleted from Keychain")
             isPasswordCreated = false // Set isPasswordCreated to false after deleting the password
