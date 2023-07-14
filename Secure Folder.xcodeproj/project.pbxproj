@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		139490AB2A59DDB600B2B460 /* AsymmetricEncDec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139490AA2A59DDB600B2B460 /* AsymmetricEncDec.swift */; };
+		139490AD2A5A89B500B2B460 /* KeyPairGenerationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139490AC2A5A89B500B2B460 /* KeyPairGenerationView.swift */; };
+		139490AF2A61670100B2B460 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139490AE2A61670000B2B460 /* Security.framework */; };
 		8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C62592F2A36EAF600F647BA /* SplashScreenView.swift */; };
 		8C6259352A36F93D00F647BA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6259342A36F93D00F647BA /* FirebaseAnalytics */; };
 		8C6259372A36F93D00F647BA /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6259362A36F93D00F647BA /* FirebaseAnalyticsSwift */; };
@@ -67,6 +70,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		139490AA2A59DDB600B2B460 /* AsymmetricEncDec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AsymmetricEncDec.swift; path = "Secure Folder/Encryption and Decryption/AsymmetricEncDec.swift"; sourceTree = SOURCE_ROOT; };
+		139490AC2A5A89B500B2B460 /* KeyPairGenerationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPairGenerationView.swift; sourceTree = "<group>"; };
+		139490AE2A61670000B2B460 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8C62592F2A36EAF600F647BA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		8C6259312A36F5BD00F647BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Secure Folder/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8CA2DB952A443A5B003C1D70 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
@@ -118,6 +124,7 @@
 				8C62593D2A36F93D00F647BA /* FirebaseCrashlytics in Frameworks */,
 				8C6259352A36F93D00F647BA /* FirebaseAnalytics in Frameworks */,
 				8C62593B2A36F93D00F647BA /* FirebaseAuth in Frameworks */,
+				139490AF2A61670100B2B460 /* Security.framework in Frameworks */,
 				8CEAD2302A40BF34003423DB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +174,7 @@
 				8CD4745A2A3D9D0F0064784D /* HomePageView.swift */,
 				8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */,
 				8CD4745E2A3D9D280064784D /* PhotoView.swift */,
+				139490AA2A59DDB600B2B460 /* AsymmetricEncDec.swift */,
 				8CD4745F2A3D9D280064784D /* VideoView.swift */,
 				8CD474592A3D9D0F0064784D /* DocumentView.swift */,
 				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
@@ -227,6 +235,7 @@
 		8CBE8F8529E416A9000A52EC /* Secure Folder */ = {
 			isa = PBXGroup;
 			children = (
+				139490AC2A5A89B500B2B460 /* KeyPairGenerationView.swift */,
 				8C8CF70C2A509283002A214F /* Encryption and Decryption */,
 				8CA2DB9F2A447840003C1D70 /* Model */,
 				8CA2DB942A440FF4003C1D70 /* Root */,
@@ -273,6 +282,7 @@
 		8CEAD22E2A40BF33003423DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				139490AE2A61670000B2B460 /* Security.framework */,
 				8CEAD22F2A40BF34003423DB /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -431,12 +441,14 @@
 				8CD4746B2A3E2F240064784D /* AuthError.swift in Sources */,
 				8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */,
 				8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */,
+				139490AD2A5A89B500B2B460 /* KeyPairGenerationView.swift in Sources */,
 				8CA2DB9D2A4445D6003C1D70 /* FilePicker.swift in Sources */,
 				8CD474612A3D9D280064784D /* VideoView.swift in Sources */,
 				8CD5BB052A3795D7002F0C2E /* User.swift in Sources */,
 				8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */,
 				8CD5BB022A3795D7002F0C2E /* RegistrationView.swift in Sources */,
 				8CD474602A3D9D280064784D /* PhotoView.swift in Sources */,
+				139490AB2A59DDB600B2B460 /* AsymmetricEncDec.swift in Sources */,
 				8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */,
 				8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */,
 				8CD4745D2A3D9D100064784D /* HomePageView.swift in Sources */,

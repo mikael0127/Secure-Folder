@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import Security
 
 protocol AuthenticationFormProtocol {
     var formIsValid: Bool { get }
@@ -48,16 +49,34 @@ class AuthViewModel: ObservableObject {
             isLoading = false
         }
     }
-    
+
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
         isLoading = true
         
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email)
-            guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
+            
+            // Generate key pair
+            let keyPair = try generateKeyPair()
+            
+            // Save public key in Firebase database
+            let publicKeyData = try PublicKeyContainer(publicKey: keyPair.publicKey).encodedData()
+            guard let encodedUser = try? Firestore.Encoder().encode(User(id: result.user.uid, fullname: fullname, email: email, publicKey: publicKeyData)) else {
+                return
+            }
             try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser)
+            
+            // Save private key in Keychain
+            let privateKeyData = try privateKeyDataToKeychainData(keyPair.privateKey)
+            try savePrivateKeyToKeychain(privateKeyData)
+            
+            // Print keys
+            let publicKeyString = publicKeyData.base64EncodedString(options: [])
+            let privateKeyString = privateKeyData.base64EncodedString(options: [])
+            print("Public Key: \(publicKeyString)")
+            print("Private Key: \(privateKeyString)")
+            
             await fetchUser()
             isLoading = false
         } catch {
@@ -65,7 +84,6 @@ class AuthViewModel: ObservableObject {
             self.showAlert = true
             self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
             isLoading = false
-
         }
     }
     
@@ -136,3 +154,166 @@ class AuthViewModel: ObservableObject {
         }
     }
 }
+
+struct PublicKeyContainer {
+    let publicKey: SecKey
+
+    func encodedData() throws -> Data {
+        var error: Unmanaged<CFError>?
+        guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data? else {
+            throw error?.takeRetainedValue() ?? EncryptionError.keyGenerationFailed
+        }
+        return publicKeyData
+    }
+}
+
+func publicKeyDataFromKey(_ publicKey: SecKey) throws -> Data {
+    let query: [String: Any] = [
+        kSecValueRef as String: publicKey,
+        kSecReturnData as String: true
+    ]
+    
+    var publicKeyData: AnyObject?
+    let status = SecItemCopyMatching(query as CFDictionary, &publicKeyData)
+    
+    if status != errSecSuccess {
+        throw EncryptionError.keyGenerationFailed
+    }
+    
+    guard let data = publicKeyData as? Data else {
+        throw EncryptionError.keyGenerationFailed
+    }
+    
+    return data
+}
+
+func privateKeyDataToKeychainData(_ privateKey: SecKey) throws -> Data {
+    var error: Unmanaged<CFError>?
+    guard let keyData = SecKeyCopyExternalRepresentation(privateKey, &error) as Data? else {
+        throw error?.takeRetainedValue() ?? EncryptionError.keyGenerationFailed
+    }
+    return keyData
+}
+
+func savePrivateKeyToKeychain(_ privateKeyData: Data) {
+    let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
+
+    let query: [String: Any] = [
+        kSecClass as String: kSecClassKey,
+        kSecAttrApplicationTag as String: privateKeyTag,
+        kSecAttrKeyType as String: kSecAttrKeyTypeRSA
+    ]
+
+    let updateAttributes: [String: Any] = [
+        kSecValueData as String: privateKeyData
+    ]
+
+    let status = SecItemUpdate(query as CFDictionary, updateAttributes as CFDictionary)
+
+    if status == errSecSuccess {
+        print("Private key updated in Keychain successfully.")
+    } else if status == errSecItemNotFound {
+        var addAttributes = query
+        addAttributes[kSecValueData as String] = privateKeyData
+
+        let addStatus = SecItemAdd(addAttributes as CFDictionary, nil)
+
+        if addStatus == errSecSuccess {
+            print("Private key stored in Keychain successfully.")
+        } else if let error = SecCopyErrorMessageString(addStatus, nil) {
+            print("Error saving private key to Keychain: \(error)")
+        } else {
+            print("Unknown error occurred while saving private key to Keychain.")
+        }
+    } else if let error = SecCopyErrorMessageString(status, nil) {
+        print("Error updating private key in Keychain: \(error)")
+    } else {
+        print("Unknown error occurred while updating private key in Keychain.")
+    }
+}
+
+// draft 1
+//func savePrivateKeyToKeychain(_ privateKeyData: Data) {
+//    let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
+//
+//    let query: [String: Any] = [
+//        kSecClass as String: kSecClassKey,
+//        kSecAttrApplicationTag as String: privateKeyTag,
+//        kSecAttrKeyType as String: kSecAttrKeyTypeRSA
+//    ]
+//
+//    let updateAttributes: [String: Any] = [
+//        kSecValueData as String: privateKeyData
+//    ]
+//
+//    let status = SecItemUpdate(query as CFDictionary, updateAttributes as CFDictionary)
+//
+//    if status == errSecSuccess {
+//        print("Private key updated in Keychain successfully.")
+//    } else if status == errSecItemNotFound {
+//        // The private key doesn't exist, so add it to the Keychain
+//        var addAttributes = query
+//        addAttributes[kSecValueData as String] = privateKeyData
+//
+//        let addStatus = SecItemAdd(addAttributes as CFDictionary, nil)
+//
+//        if addStatus == errSecSuccess {
+//            print("Private key stored in Keychain successfully.")
+//        } else if let error = SecCopyErrorMessageString(addStatus, nil) {
+//            print("Error saving private key to Keychain: \(error)")
+//        } else {
+//            print("Unknown error occurred while saving private key to Keychain.")
+//        }
+//    } else if let error = SecCopyErrorMessageString(status, nil) {
+//        print("Error updating private key in Keychain: \(error)")
+//    } else {
+//        print("Unknown error occurred while updating private key in Keychain.")
+//    }
+//}
+
+
+//func savePrivateKeyToKeychain(_ privateKeyData: Data) {
+//    let privateKeyTag = "com.example.privateKeyTag" // Update with your private key tag
+//
+//    let query: [String: Any] = [
+//        kSecClass as String: kSecClassKey,
+//        kSecAttrApplicationTag as String: privateKeyTag,
+//        kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+//        kSecValueData as String: privateKeyData
+//    ]
+//
+//    let status = SecItemAdd(query as CFDictionary, nil)
+//
+//    if status == errSecSuccess {
+//        print("Private key stored in Keychain successfully.")
+//    } else if let error = SecCopyErrorMessageString(status, nil) {
+//        print("Error saving private key to Keychain: \(error)")
+//    } else {
+//        print("Unknown error occurred while saving private key to Keychain.")
+//    }
+//}
+
+
+
+
+
+// original create user
+//    func createUser(withEmail email: String, password: String, fullname: String) async throws {
+//        isLoading = true
+//
+//        do {
+//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+//            self.userSession = result.user
+//            let user = User(id: result.user.uid, fullname: fullname, email: email)
+//            guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
+//            try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser)
+//            await fetchUser()
+//            isLoading = false
+//        } catch {
+//            let authError = AuthErrorCode.Code(rawValue: (error as NSError).code)
+//            self.showAlert = true
+//            self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
+//            isLoading = false
+//
+//        }
+//    }
