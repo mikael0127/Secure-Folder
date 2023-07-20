@@ -90,7 +90,7 @@ func encryptFile(atPath sourcePath: String, toPath destinationPath: String, with
 }
 
 func encryptData(_ data: Data, publicKey: SecKey) throws -> Data {
-    print("Data to encrypt:", data)
+    //print("Data to encrypt:", data)
     let algorithm = SecKeyAlgorithm.rsaEncryptionOAEPSHA512
     guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
         throw EncryptionError.algorithmNotSupported
@@ -100,7 +100,7 @@ func encryptData(_ data: Data, publicKey: SecKey) throws -> Data {
     guard let encryptedData = SecKeyCreateEncryptedData(publicKey, algorithm, data as CFData, &error) as Data? else {
         throw error?.takeRetainedValue() ?? EncryptionError.keyGenerationFailed
     }
-    print("Encrypted data:", encryptedData)
+    //print("Encrypted data:", encryptedData)
     return encryptedData
 }
 
@@ -155,16 +155,16 @@ func decryptFile(atPath sourcePath: String, toPath destinationPath: String, with
 
     let encryptedData = try Data(contentsOf: sourceURL)
     let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedData)
-    print("Sealed Box:", sealedBox)
+    //print("Sealed Box:", sealedBox)
 
     let decryptedData = try ChaChaPoly.open(sealedBox, using: key)
-    print("Decrypted Data:", decryptedData)
+    //print("Decrypted Data:", decryptedData)
 
     try decryptedData.write(to: destinationURL)
 }
 
 func decryptData(_ encryptedData: Data, privateKey: SecKey) throws -> Data {
-    print("Data to decrypt:", encryptedData)
+    //print("Data to decrypt:", encryptedData)
     let algorithm = SecKeyAlgorithm.rsaEncryptionOAEPSHA512
     guard SecKeyIsAlgorithmSupported(privateKey, .decrypt, algorithm) else {
         throw EncryptionError.algorithmNotSupported
@@ -174,7 +174,7 @@ func decryptData(_ encryptedData: Data, privateKey: SecKey) throws -> Data {
     guard let decryptedData = SecKeyCreateDecryptedData(privateKey, algorithm, encryptedData as CFData, &error) as Data? else {
         throw error?.takeRetainedValue() ?? EncryptionError.keyGenerationFailed
     }
-    print("Decrypted data:", decryptedData)
+    //print("Decrypted data:", decryptedData)
     return decryptedData
 }
 
