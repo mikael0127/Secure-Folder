@@ -271,7 +271,6 @@ struct HomePageView: View {
     @AppStorage("isLocked") private var isLocked = true
     @State private var isFolderStateInitialized = false
     @State private var showAlert = false
-    private let publicKeyTag = "com.example.publicKeyTag"
 
     private func initializeFolderState() {
         guard !isFolderStateInitialized else { return } // Check if folder state is already initialized
@@ -291,6 +290,9 @@ struct HomePageView: View {
         }
 
         isFolderStateInitialized = true // Mark the folder state as initialized
+        
+        let isPrivateKeyStored = isPrivateKeyStoredInKeychain()     // To check if private key is saved or not
+        print("Is private key stored in Keychain? \(isPrivateKeyStored)")
     }
 
     var body: some View {
@@ -465,10 +467,9 @@ struct HomePageView: View {
         .padding(.trailing)
         .disabled(isLocked) // Disable the lock button when the folder is locked
     }
-
+    
     // Get the public key from Firestore
     private func getPublicKey() async throws -> SecKey {
-//        let publicKeyTag = "com.example.publicKeyTag" // Update with your public key tag
         guard let uid = Auth.auth().currentUser?.uid else {
             throw EncryptionError.keyGenerationFailed
         }
@@ -501,39 +502,31 @@ struct HomePageView: View {
         return publicKey
     }
     
-    func getPrivateKeyFromKeychain() throws -> SecKey? {
+    // To check if the private key is saved
+    func isPrivateKeyStoredInKeychain() -> Bool {
         let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecAttrApplicationTag as String: privateKeyTag,
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
-            kSecReturnRef as String: true
+            kSecReturnAttributes as String: true // Request the key attributes
         ]
 
-        var result: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        var queryResult: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &queryResult)
 
         if status == errSecSuccess {
-            if let privateKeyRef = result {
-                let privateKey = unsafeBitCast(privateKeyRef, to: SecKey.self)
-                return privateKey
-            } else {
-                throw KeychainError.retrievalFailed(message: "Failed to retrieve private key.")
-            }
+            return true
         } else if status == errSecItemNotFound {
-            throw KeychainError.keyNotFound
-        } else if let error = SecCopyErrorMessageString(status, nil) {
-            throw KeychainError.retrievalFailed(message: error as String)
+            return false
         } else {
-            throw KeychainError.unknownError
+            return false
         }
     }
 
-
-    // Get the private key from Keychain
-//    func getPrivateKeyFromKeychain() throws -> SecKey {
-//        let privateKeyTag = "com.example.privateKeyTag" // Update with your private key tag
+//    func getPrivateKeyFromKeychain() throws -> SecKey? {
+//        let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
 //
 //        let query: [String: Any] = [
 //            kSecClass as String: kSecClassKey,
@@ -542,13 +535,12 @@ struct HomePageView: View {
 //            kSecReturnRef as String: true
 //        ]
 //
-//        var result: CFTypeRef?
-//        let status = SecItemCopyMatching(query as CFDictionary, &result)
+//        var privateKeyRef: CFTypeRef?
+//        let status = SecItemCopyMatching(query as CFDictionary, &privateKeyRef)
 //
 //        if status == errSecSuccess {
-//            if let privateKey = result {
-//                print("Private Key: \(privateKey)")
-//                return privateKey as! SecKey
+//            if let privateKey = privateKeyRef {
+//                return unsafeBitCast(privateKey, to: SecKey.self)
 //            } else {
 //                throw KeychainError.retrievalFailed(message: "Failed to retrieve private key.")
 //            }
@@ -560,7 +552,45 @@ struct HomePageView: View {
 //            throw KeychainError.unknownError
 //        }
 //    }
-//
+    func getPrivateKeyFromKeychain() throws -> SecKey? {
+        let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
+
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecAttrApplicationTag as String: privateKeyTag,
+            kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+            kSecReturnData as String: true // Return the key data instead of the reference
+        ]
+
+        var privateKeyData: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &privateKeyData)
+
+        if status == errSecSuccess {
+            if let privateKeyData = privateKeyData as? Data {
+                let options: [String: Any] = [
+                    kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+                    kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
+                    kSecAttrKeySizeInBits as String: NSNumber(value: 2048) // Update with your key size
+                ]
+
+                var error: Unmanaged<CFError>?
+                guard let privateKey = SecKeyCreateWithData(privateKeyData as CFData, options as CFDictionary, &error) else {
+                    throw error?.takeRetainedValue() ?? KeychainError.retrievalFailed(message: "Failed to create private key from data.")
+                }
+                
+                return privateKey
+            } else {
+                throw KeychainError.retrievalFailed(message: "Private key data is invalid.")
+            }
+        } else if status == errSecItemNotFound {
+            throw KeychainError.keyNotFound
+        } else if let error = SecCopyErrorMessageString(status, nil) {
+            throw KeychainError.retrievalFailed(message: error as String)
+        } else {
+            throw KeychainError.unknownError
+        }
+    }
+
     enum KeychainError: Error {
         case keyNotFound
         case retrievalFailed(message: String)
