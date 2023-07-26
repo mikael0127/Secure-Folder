@@ -1,6 +1,6 @@
 //
 //  ProfileView.swift
-//  SwiftAuthTutorial
+//  Secure Folder
 //
 //  Created by Mikael Denys Wijaya on 09/06/23.
 //
@@ -98,7 +98,7 @@ struct ProfileView: View {
                 CustomProgressView()
             }
         }
-        .navigationBarTitle(Text("Profile").fontWeight(.semibold))
+        .navigationBarTitle("Profile")
     }
 }
 

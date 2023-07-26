@@ -1,13 +1,13 @@
 //
-//  SettingsRowView.swift
+//  HomepageRowView.swift
 //  Secure Folder
 //
-//  Created by Mikael Denys Wijaya on 10/06/23.
+//  Created by Mikael Denys Widjaja on 21/7/23.
 //
 
 import SwiftUI
 
-struct SettingsRowView: View {
+struct HomepageRowView: View {
     let imageName: String
     let title: String
     let tintColor: Color
@@ -27,8 +27,8 @@ struct SettingsRowView: View {
     }
 }
 
-struct SettingsRowView_Previews: PreviewProvider {
+struct HomepageRowView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsRowView(imageName: "gear", title: "Version", tintColor: Color(.systemGray))
+        HomepageRowView(imageName: "gear", title: "Version", tintColor: Color(.systemGray))
     }
 }

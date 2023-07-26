@@ -1,5 +1,5 @@
 //
-//  homePageView.swift
+//  HomePageView.swift
 //  Secure Folder
 //
 //  Created by Mikael Denys Wijaya on 14/06/23.
@@ -15,6 +15,7 @@ import Firebase
 struct HomePageView: View {
     // Use @AppStorage to persist the isLocked value
     @AppStorage("isLocked") private var isLocked = true
+    @AppStorage("isFolderLocked") private var isFolderLocked = true
     @State private var isFolderStateInitialized = false
     @State private var showAlert = false
 
@@ -106,7 +107,7 @@ struct HomePageView: View {
 
                     Spacer()
                 }
-                .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))
+                .navigationBarTitle("Secure Folder")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         lockButton
@@ -128,39 +129,132 @@ struct HomePageView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-
+  
     // View displayed when folder is unlocked
     func unlockedView() -> some View {
         TabView {
             NavigationView {
                 List {
                     Section {
-                        NavigationLink(destination: PhotoView()) {
-                            SettingsRowView(imageName: "photo",
-                                            title: "Photos",
-                                            tintColor: .blue)
-                        }
 
-                        NavigationLink(destination: VideoView()) {
-                            SettingsRowView(imageName: "video",
-                                            title: "Videos",
-                                            tintColor: .blue)
-                        }
+                        CustomRowView(title: "Photos",
+                                      imageName: "photo",
+                                      tintColor: .blue,
+                                      destination: PhotoView(),
+                                      encryptAction: {
+                                          Task {
+                                              do {
+                                                  let publicKey = try await getPublicKey()
+                                                  try await encryptPhotosFolder(withPublicKey: publicKey)
+                                              } catch {
+                                                  print("Error encrypting photos folder:", error)
+                                              }
+                                          }
+                                      },
+                                      decryptAction: {
+                                            Task {
+                                                if let privateKey = try? await getPrivateKeyFromKeychain() {
+                                                    do {
+                                                        try await decryptPhotosFolder(withPrivateKey: privateKey)
+                                                    } catch {
+                                                        print("Error decrypting photos folder:", error)
+                                                    }
+                                                } else {
+                                                    print("Private key is nil.")
+                                                }
+                                            }
+                                        }
+                        )
+                        
+                        CustomRowView(title: "Videos",
+                                      imageName: "video",
+                                      tintColor: .blue,
+                                      destination: VideoView(),
+                                      encryptAction: {
+                                          Task {
+                                              do {
+                                                  let publicKey = try await getPublicKey()
+                                                  try await encryptVideosFolder(withPublicKey: publicKey)
+                                              } catch {
+                                                  print("Error encrypting videos folder:", error)
+                                              }
+                                          }
+                                      },
+                                      decryptAction: {
+                                            Task {
+                                                if let privateKey = try? await getPrivateKeyFromKeychain() {
+                                                    do {
+                                                        try await decryptVideosFolder(withPrivateKey: privateKey)
+                                                    } catch {
+                                                        print("Error decrypting videos folder:", error)
+                                                    }
+                                                } else {
+                                                    print("Private key is nil.")
+                                                }
+                                            }
+                                        }
+                        )
 
-                        NavigationLink(destination: DocumentView()) {
-                            SettingsRowView(imageName: "doc",
-                                            title: "Documents",
-                                            tintColor: .blue)
-                        }
+                        CustomRowView(title: "Documents",
+                                      imageName: "doc",
+                                      tintColor: .blue,
+                                      destination: DocumentView(),
+                                      encryptAction: {
+                                          Task {
+                                              do {
+                                                  let publicKey = try await getPublicKey()
+                                                  try await encryptDocFolder(withPublicKey: publicKey)
+                                              } catch {
+                                                  print("Error encrypting documents folder:", error)
+                                              }
+                                          }
+                                      },
+                                      decryptAction: {
+                                            Task {
+                                                if let privateKey = try? await getPrivateKeyFromKeychain() {
+                                                    do {
+                                                        try await decryptDocFolder(withPrivateKey: privateKey)
+                                                    } catch {
+                                                        print("Error decrypting documents folder:", error)
+                                                    }
+                                                } else {
+                                                    print("Private key is nil.")
+                                                }
+                                            }
+                                        }
+                        )
 
-                        NavigationLink(destination: ContactListView()) {
-                            SettingsRowView(imageName: "person.crop.circle.fill",
-                                            title: "Contacts",
-                                            tintColor: .blue)
-                        }
+                        CustomRowView(title: "Contacts",
+                                      imageName: "person.crop.circle.fill",
+                                      tintColor: .blue,
+                                      destination: ContactListView(),
+                                      encryptAction: {
+                                          Task {
+                                              do {
+                                                  let publicKey = try await getPublicKey()
+                                                  try await encryptContactsFolder(withPublicKey: publicKey)
+                                              } catch {
+                                                  print("Error encrypting contacts folder:", error)
+                                              }
+                                          }
+                                      },
+                                      decryptAction: {
+                                            Task {
+                                                if let privateKey = try? await getPrivateKeyFromKeychain() {
+                                                    do {
+                                                        try await decryptContactsFolder(withPrivateKey: privateKey)
+                                                    } catch {
+                                                        print("Error decrypting contacts folder:", error)
+                                                    }
+                                                } else {
+                                                    print("Private key is nil.")
+                                                }
+                                            }
+                                        }
+                        )
                     }
                 }
-                .navigationBarTitle(Text("Secure Folder").fontWeight(.semibold))
+                .navigationBarTitle("Secure Folder")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         lockButton
@@ -182,6 +276,46 @@ struct HomePageView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
+    
+    typealias FolderOperation = () -> Void
+    
+    struct CustomRowView<Destination: View>: View {
+        let title: String
+        let imageName: String
+        let tintColor: Color
+        let destination: Destination
+        let encryptAction: FolderOperation // Closure for encrypting
+        let decryptAction: FolderOperation // Closure for decrypting
+
+        @State private var isLocked = false
+
+        var body: some View {
+            HStack {
+                NavigationLink(destination: destination) {
+                    SettingsRowView(imageName: imageName, title: title, tintColor: tintColor)
+                }
+                .disabled(isLocked) // Disable the NavigationLink when locked
+
+                Divider()
+
+                Button(action: {
+                    isLocked.toggle()
+
+                    if isLocked {
+                        encryptAction() // Call the encrypt function
+                    } else {
+                        decryptAction() // Call the decrypt function
+                    }
+                }) {
+                    Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
+                        .foregroundColor(isLocked ? .red : .blue)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+
 
     // Lock button in the top-right corner
     var lockButton: some View {
@@ -322,4 +456,86 @@ struct HomePageView_Previews: PreviewProvider {
         HomePageView()
     }
 }
+
+//                        NavigationLink(destination: PhotoView()) {
+//                            SettingsRowView(imageName: "photo",
+//                                            title: "Photos",
+//                                            tintColor: .blue)
+//                        }
+//
+//                        NavigationLink(destination: VideoView()) {
+//                            SettingsRowView(imageName: "video",
+//                                            title: "Videos",
+//                                            tintColor: .blue)
+//                        }
+//
+//                        NavigationLink(destination: DocumentView()) {
+//                            SettingsRowView(imageName: "doc",
+//                                            title: "Documents",
+//                                            tintColor: .blue)
+//                        }
+//
+//                        NavigationLink(destination: ContactListView()) {
+//                            SettingsRowView(imageName: "person.crop.circle.fill",
+//                                            title: "Contacts",
+//                                            tintColor: .blue)
+//                        }
+
+
+// Draft with animation
+//struct CustomRowView<Destination: View>: View {
+//    let title: String
+//    let imageName: String
+//    let tintColor: Color
+//    let destination: Destination
+//    let buttonAction: () -> Void
+//
+//    @State private var isUnlocked = false
+//
+//    var body: some View {
+//        HStack {
+//            NavigationLink(destination: destination, isActive: $isUnlocked) {
+//                SettingsRowView(imageName: imageName, title: title, tintColor: tintColor)
+//            }
+//            .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to disable the default link behavior for the entire row
+//
+//            Spacer()
+//
+//            Button(action: {
+//                if isUnlocked {
+//                    // Add the tasks you want to perform when the lock button is pressed here
+//                    print("Lock Button pressed")
+//                    isUnlocked = false
+//                } else {
+//                    buttonAction()
+//                    isUnlocked = true
+//                }
+//            }) {
+//                Image(systemName: isUnlocked ? "lock.fill" : "lock.open.fill").imageScale(.small)
+//            }
+//            .buttonStyle(CustomLockButtonStyle(isUnlocked: isUnlocked))
+//        }
+//    }
+//}
+//
+//// Custom ButtonStyle to control the lock button appearance based on the unlocked state
+//struct CustomLockButtonStyle: ButtonStyle {
+//    let isUnlocked: Bool
+//
+//    func makeBody(configuration: Configuration) -> some View {
+//        let color: Color = isUnlocked ? .red : .blue
+//
+//        return configuration.label
+//            .foregroundColor(color)
+//            .font(.title)
+//            .imageScale(.medium)
+//            .padding(.trailing)
+//            .background(configuration.isPressed ? Color.white.opacity(0.001) : Color.clear)
+//            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+//            .animation(.easeOut(duration: 0.2))
+//    }
+//}
+//
+//
+
 

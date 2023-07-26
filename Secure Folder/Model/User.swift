@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  SwiftAuthTutorial
+//  Secure Folder
 //
 //  Created by Mikael Denys Wijaya on 10/06/23.
 //

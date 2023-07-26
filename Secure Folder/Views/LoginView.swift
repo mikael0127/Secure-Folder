@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  SwiftAuthTutorial
+//  Secure Folder
 //
 //  Created by Mikael Denys Wijaya on 09/06/23.
 //

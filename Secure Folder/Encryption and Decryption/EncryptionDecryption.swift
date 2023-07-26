@@ -210,5 +210,172 @@ func encryptDocumentsFolder(withPublicKey publicKey: SecKey) {
     }
 }
 
+func encryptPhotosFolder(withPublicKey publicKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let photosFolderPath = mainFolderPath.appending("/Photos")
+    let encryptedPhotosFolderPath = mainFolderPath.appending("/Photos.encrypted")
+
+    // Check if the encrypted photos folder already exists
+    if FileManager.default.fileExists(atPath: encryptedPhotosFolderPath) {
+        print("Encrypted photos folder already exists.")
+        return
+    }
+
+    do {
+        let key = SymmetricKey(size: .bits256)
+        try encryptFolder(atPath: photosFolderPath, withKey: key, publicKey: publicKey)
+        print("Photos folder encryption completed.")
+    } catch {
+        print("Error encrypting photos folder: \(error)")
+    }
+}
+
+func decryptPhotosFolder(withPrivateKey privateKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let encryptedPhotosFolderPath = mainFolderPath.appending("/Photos.encrypted")
+    let decryptedPhotosFolderPath = mainFolderPath.appending("/Photos")
+
+    // Check if the decrypted photos folder already exists
+    if FileManager.default.fileExists(atPath: decryptedPhotosFolderPath) {
+        print("Decrypted photos folder already exists.")
+        return
+    }
+
+    do {
+        try decryptFolder(atPath: encryptedPhotosFolderPath, privateKey: privateKey)
+        print("Photos folder decryption completed.")
+    } catch {
+        print("Error decrypting photos folder: \(error)")
+    }
+}
+
+func encryptVideosFolder(withPublicKey publicKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let videosFolderPath = mainFolderPath.appending("/Videos")
+    let encryptedVideosFolderPath = mainFolderPath.appending("/Videos.encrypted")
+
+    // Check if the encrypted videos folder already exists
+    if FileManager.default.fileExists(atPath: encryptedVideosFolderPath) {
+        print("Encrypted videos folder already exists.")
+        return
+    }
+
+    do {
+        let key = SymmetricKey(size: .bits256)
+        try encryptFolder(atPath: videosFolderPath, withKey: key, publicKey: publicKey)
+        print("Videos folder encryption completed.")
+    } catch {
+        print("Error encrypting videos folder: \(error)")
+    }
+}
+
+func decryptVideosFolder(withPrivateKey privateKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let encryptedVideosFolderPath = mainFolderPath.appending("/Videos.encrypted")
+    let decryptedVideosFolderPath = mainFolderPath.appending("/Videos")
+
+    // Check if the decrypted videos folder already exists
+    if FileManager.default.fileExists(atPath: decryptedVideosFolderPath) {
+        print("Decrypted videos folder already exists.")
+        return
+    }
+
+    do {
+        try decryptFolder(atPath: encryptedVideosFolderPath, privateKey: privateKey)
+        print("Vidoes folder decryption completed.")
+    } catch {
+        print("Error decrypting videos folder: \(error)")
+    }
+}
+
+func encryptDocFolder(withPublicKey publicKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let documentsFolderPath = mainFolderPath.appending("/Documents")
+    let encryptedDocumentsFolderPath = mainFolderPath.appending("/Documents.encrypted")
+
+    // Check if the encrypted documents folder already exists
+    if FileManager.default.fileExists(atPath: encryptedDocumentsFolderPath) {
+        print("Encrypted documents folder already exists.")
+        return
+    }
+
+    do {
+        let key = SymmetricKey(size: .bits256)
+        try encryptFolder(atPath: documentsFolderPath, withKey: key, publicKey: publicKey)
+        print("Documents folder encryption completed.")
+    } catch {
+        print("Error encrypting documents folder: \(error)")
+    }
+}
+
+func decryptDocFolder(withPrivateKey privateKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let encryptedDocumentsFolderPath = mainFolderPath.appending("/Documents.encrypted")
+    let decryptedDocumentsFolderPath = mainFolderPath.appending("/Documents")
+
+    // Check if the decrypted documents folder already exists
+    if FileManager.default.fileExists(atPath: decryptedDocumentsFolderPath) {
+        print("Decrypted documents folder already exists.")
+        return
+    }
+
+    do {
+        try decryptFolder(atPath: encryptedDocumentsFolderPath, privateKey: privateKey)
+        print("Documents folder decryption completed.")
+    } catch {
+        print("Error decrypting documents folder: \(error)")
+    }
+}
+
+func encryptContactsFolder(withPublicKey publicKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let contactsFolderPath = mainFolderPath.appending("/Contacts")
+    let encryptedContactsFolderPath = mainFolderPath.appending("/Contacts.encrypted")
+
+    // Check if the encrypted contacts folder already exists
+    if FileManager.default.fileExists(atPath: encryptedContactsFolderPath) {
+        print("Encrypted contacts folder already exists.")
+        return
+    }
+
+    do {
+        let key = SymmetricKey(size: .bits256)
+        try encryptFolder(atPath: contactsFolderPath, withKey: key, publicKey: publicKey)
+        print("Contacts folder encryption completed.")
+    } catch {
+        print("Error encrypting contacts folder: \(error)")
+    }
+}
+
+func decryptContactsFolder(withPrivateKey privateKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let mainFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+    let encryptedContactsFolderPath = mainFolderPath.appending("/Contacts.encrypted")
+    let decryptedContactsFolderPath = mainFolderPath.appending("/Contacts")
+
+    // Check if the decrypted contacts folder already exists
+    if FileManager.default.fileExists(atPath: decryptedContactsFolderPath) {
+        print("Decrypted contacts folder already exists.")
+        return
+    }
+
+    do {
+        try decryptFolder(atPath: encryptedContactsFolderPath, privateKey: privateKey)
+        print("Contacts folder decryption completed.")
+    } catch {
+        print("Error decrypting contacts folder: \(error)")
+    }
+}
+
+
+
+
 
 

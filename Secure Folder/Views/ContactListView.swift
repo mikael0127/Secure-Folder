@@ -117,7 +117,7 @@ struct ContactListView: View {
             }
             .padding(.vertical, 32)
         }
-        .navigationTitle(Text("Contacts List").font(.title))
+        .navigationTitle("Contacts List")
         .navigationBarItems(trailing: EditButton()) // Enable edit mode
         .onAppear {
             pickerDelegate.loadContacts()

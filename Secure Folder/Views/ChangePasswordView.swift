@@ -94,7 +94,7 @@ struct ChangePasswordView: View {
             
         }
         .padding()
-        .navigationBarTitle(Text("Change Password").fontWeight(.semibold))
+        .navigationBarTitle("Change Password")
     }
 }
 
