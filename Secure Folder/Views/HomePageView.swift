@@ -165,6 +165,8 @@ struct HomePageView: View {
                                             }
                                         }
                         )
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
+                        .listRowSeparator(.hidden)
                         
                         CustomRowView(title: "Videos",
                                       imageName: "video",
@@ -194,8 +196,10 @@ struct HomePageView: View {
                                             }
                                         }
                         )
-
-                        CustomRowView(title: "Documents",
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
+                        .listRowSeparator(.hidden)
+                        
+                        CustomRowView(title: "  Documents",
                                       imageName: "doc",
                                       tintColor: .blue,
                                       destination: DocumentView(),
@@ -223,8 +227,10 @@ struct HomePageView: View {
                                             }
                                         }
                         )
-
-                        CustomRowView(title: "Contacts",
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
+                        .listRowSeparator(.hidden)
+                        
+                        CustomRowView(title: " Contacts",
                                       imageName: "person.crop.circle.fill",
                                       tintColor: .blue,
                                       destination: ContactListView(),
@@ -252,6 +258,7 @@ struct HomePageView: View {
                                             }
                                         }
                         )
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
                     }
                 }
                 .navigationBarTitle("Secure Folder")
@@ -279,6 +286,42 @@ struct HomePageView: View {
     
     typealias FolderOperation = () -> Void
     
+//    struct CustomRowView<Destination: View>: View {
+//        let title: String
+//        let imageName: String
+//        let tintColor: Color
+//        let destination: Destination
+//        let encryptAction: FolderOperation // Closure for encrypting
+//        let decryptAction: FolderOperation // Closure for decrypting
+//
+//        @State private var isLocked = false
+//
+//        var body: some View {
+//            HStack {
+//                NavigationLink(destination: destination) {
+//                    SettingsRowView(imageName: imageName, title: title, tintColor: tintColor)
+//                }
+//                .disabled(isLocked) // Disable the NavigationLink when locked
+//
+//                Spacer()
+//
+//                Button(action: {
+//                    isLocked.toggle()
+//
+//                    if isLocked {
+//                        encryptAction() // Call the encrypt function
+//                    } else {
+//                        decryptAction() // Call the decrypt function
+//                    }
+//                }) {
+//                    Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
+//                        .foregroundColor(isLocked ? .blue : .blue)
+//                }
+//                .buttonStyle(.plain)
+//            }
+//        }
+//    }
+    // 2nd one working one
     struct CustomRowView<Destination: View>: View {
         let title: String
         let imageName: String
@@ -290,28 +333,39 @@ struct HomePageView: View {
         @State private var isLocked = false
 
         var body: some View {
-            HStack {
-                NavigationLink(destination: destination) {
-                    SettingsRowView(imageName: imageName, title: title, tintColor: tintColor)
-                }
-                .disabled(isLocked) // Disable the NavigationLink when locked
+            VStack(spacing:0){
+                HStack {
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 0) {
+                        NavigationLink(destination: destination) {
+                            EmptyView() // Set the label to EmptyView to hide the arrow
+                        }
+                        .disabled(isLocked) // Disable the NavigationLink when locked
+                        .opacity(0) // Set opacity to 0 to hide any possible empty space from the hidden arrow
 
-                Divider()
-
-                Button(action: {
-                    isLocked.toggle()
-
-                    if isLocked {
-                        encryptAction() // Call the encrypt function
-                    } else {
-                        decryptAction() // Call the decrypt function
+                        SettingsRowView(imageName: imageName, title: title, tintColor: isLocked ? .gray : tintColor)
+                            .opacity(isLocked ? 0.5 : 1.0) // Adjust the opacity when locked
                     }
-                }) {
-                    Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
-                        .foregroundColor(isLocked ? .red : .blue)
+
+                    Spacer()
+
+                    Button(action: {
+                        isLocked.toggle()
+
+                        if isLocked {
+                            encryptAction() // Call the encrypt function
+                        } else {
+                            decryptAction() // Call the decrypt function
+                        }
+                    }) {
+                        Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
+                            .foregroundColor(isLocked ? .red : .blue)
+                            .padding(.top, 8)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
+            .padding(.vertical, 3)
         }
     }
 
