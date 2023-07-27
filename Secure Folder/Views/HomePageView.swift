@@ -286,42 +286,6 @@ struct HomePageView: View {
     
     typealias FolderOperation = () -> Void
     
-//    struct CustomRowView<Destination: View>: View {
-//        let title: String
-//        let imageName: String
-//        let tintColor: Color
-//        let destination: Destination
-//        let encryptAction: FolderOperation // Closure for encrypting
-//        let decryptAction: FolderOperation // Closure for decrypting
-//
-//        @State private var isLocked = false
-//
-//        var body: some View {
-//            HStack {
-//                NavigationLink(destination: destination) {
-//                    SettingsRowView(imageName: imageName, title: title, tintColor: tintColor)
-//                }
-//                .disabled(isLocked) // Disable the NavigationLink when locked
-//
-//                Spacer()
-//
-//                Button(action: {
-//                    isLocked.toggle()
-//
-//                    if isLocked {
-//                        encryptAction() // Call the encrypt function
-//                    } else {
-//                        decryptAction() // Call the decrypt function
-//                    }
-//                }) {
-//                    Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
-//                        .foregroundColor(isLocked ? .blue : .blue)
-//                }
-//                .buttonStyle(.plain)
-//            }
-//        }
-//    }
-    // 2nd one working one
     struct CustomRowView<Destination: View>: View {
         let title: String
         let imageName: String
@@ -368,8 +332,6 @@ struct HomePageView: View {
             .padding(.vertical, 3)
         }
     }
-
-
 
     // Lock button in the top-right corner
     var lockButton: some View {
@@ -510,86 +472,3 @@ struct HomePageView_Previews: PreviewProvider {
         HomePageView()
     }
 }
-
-//                        NavigationLink(destination: PhotoView()) {
-//                            SettingsRowView(imageName: "photo",
-//                                            title: "Photos",
-//                                            tintColor: .blue)
-//                        }
-//
-//                        NavigationLink(destination: VideoView()) {
-//                            SettingsRowView(imageName: "video",
-//                                            title: "Videos",
-//                                            tintColor: .blue)
-//                        }
-//
-//                        NavigationLink(destination: DocumentView()) {
-//                            SettingsRowView(imageName: "doc",
-//                                            title: "Documents",
-//                                            tintColor: .blue)
-//                        }
-//
-//                        NavigationLink(destination: ContactListView()) {
-//                            SettingsRowView(imageName: "person.crop.circle.fill",
-//                                            title: "Contacts",
-//                                            tintColor: .blue)
-//                        }
-
-
-// Draft with animation
-//struct CustomRowView<Destination: View>: View {
-//    let title: String
-//    let imageName: String
-//    let tintColor: Color
-//    let destination: Destination
-//    let buttonAction: () -> Void
-//
-//    @State private var isUnlocked = false
-//
-//    var body: some View {
-//        HStack {
-//            NavigationLink(destination: destination, isActive: $isUnlocked) {
-//                SettingsRowView(imageName: imageName, title: title, tintColor: tintColor)
-//            }
-//            .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to disable the default link behavior for the entire row
-//
-//            Spacer()
-//
-//            Button(action: {
-//                if isUnlocked {
-//                    // Add the tasks you want to perform when the lock button is pressed here
-//                    print("Lock Button pressed")
-//                    isUnlocked = false
-//                } else {
-//                    buttonAction()
-//                    isUnlocked = true
-//                }
-//            }) {
-//                Image(systemName: isUnlocked ? "lock.fill" : "lock.open.fill").imageScale(.small)
-//            }
-//            .buttonStyle(CustomLockButtonStyle(isUnlocked: isUnlocked))
-//        }
-//    }
-//}
-//
-//// Custom ButtonStyle to control the lock button appearance based on the unlocked state
-//struct CustomLockButtonStyle: ButtonStyle {
-//    let isUnlocked: Bool
-//
-//    func makeBody(configuration: Configuration) -> some View {
-//        let color: Color = isUnlocked ? .red : .blue
-//
-//        return configuration.label
-//            .foregroundColor(color)
-//            .font(.title)
-//            .imageScale(.medium)
-//            .padding(.trailing)
-//            .background(configuration.isPressed ? Color.white.opacity(0.001) : Color.clear)
-//            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-//            .animation(.easeOut(duration: 0.2))
-//    }
-//}
-//
-//
-
-
