@@ -166,7 +166,7 @@ struct HomePageView: View {
                                         }
                         )
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
-                        .listRowSeparator(.hidden)
+                      
                         
                         CustomRowView(title: "Videos",
                                       imageName: "video",
@@ -197,38 +197,7 @@ struct HomePageView: View {
                                         }
                         )
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
-                        .listRowSeparator(.hidden)
                         
-                        CustomRowView(title: "  Documents",
-                                      imageName: "doc",
-                                      tintColor: .blue,
-                                      destination: DocumentView(),
-                                      encryptAction: {
-                                          Task {
-                                              do {
-                                                  let publicKey = try await getPublicKey()
-                                                  try await encryptDocFolder(withPublicKey: publicKey)
-                                              } catch {
-                                                  print("Error encrypting documents folder:", error)
-                                              }
-                                          }
-                                      },
-                                      decryptAction: {
-                                            Task {
-                                                if let privateKey = try? await getPrivateKeyFromKeychain() {
-                                                    do {
-                                                        try await decryptDocFolder(withPrivateKey: privateKey)
-                                                    } catch {
-                                                        print("Error decrypting documents folder:", error)
-                                                    }
-                                                } else {
-                                                    print("Private key is nil.")
-                                                }
-                                            }
-                                        }
-                        )
-                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
-                        .listRowSeparator(.hidden)
                         
                         CustomRowView(title: " Contacts",
                                       imageName: "person.crop.circle.fill",
@@ -251,6 +220,37 @@ struct HomePageView: View {
                                                         try await decryptContactsFolder(withPrivateKey: privateKey)
                                                     } catch {
                                                         print("Error decrypting contacts folder:", error)
+                                                    }
+                                                } else {
+                                                    print("Private key is nil.")
+                                                }
+                                            }
+                                        }
+                        )
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
+                        
+                        
+                        CustomRowView(title: "  Documents",
+                                      imageName: "doc",
+                                      tintColor: .blue,
+                                      destination: DocumentView(),
+                                      encryptAction: {
+                                          Task {
+                                              do {
+                                                  let publicKey = try await getPublicKey()
+                                                  try await encryptDocFolder(withPublicKey: publicKey)
+                                              } catch {
+                                                  print("Error encrypting documents folder:", error)
+                                              }
+                                          }
+                                      },
+                                      decryptAction: {
+                                            Task {
+                                                if let privateKey = try? await getPrivateKeyFromKeychain() {
+                                                    do {
+                                                        try await decryptDocFolder(withPrivateKey: privateKey)
+                                                    } catch {
+                                                        print("Error decrypting documents folder:", error)
                                                     }
                                                 } else {
                                                     print("Private key is nil.")
