@@ -18,7 +18,8 @@ struct HomePageView: View {
     @AppStorage("isFolderLocked") private var isFolderLocked = true
     @State private var isFolderStateInitialized = false
     @State private var showAlert = false
-
+    @State private var alertMessage = ""
+    
     private func initializeFolderState() {
         guard !isFolderStateInitialized else { return } // Check if folder state is already initialized
 
@@ -57,10 +58,84 @@ struct HomePageView: View {
     }
 
     // Locked and unlocked view combined
+//    func lockedTabView() -> some View {
+//        TabView {
+//            NavigationView {
+//                VStack {
+//                    Image(systemName: "lock.fill")
+//                        .font(.system(size: 80))
+//                        .foregroundColor(.red)
+//                        .padding()
+//
+//                    Text("Folder is locked")
+//                        .font(.title)
+//                        .fontWeight(.semibold)
+//                        .padding()
+//
+//                    Button(action: {
+//                        isLocked.toggle() // Unlock the folder
+//                        if !isLocked {
+//                            do {
+//                                if let privateKey = try getPrivateKeyFromKeychain() {
+//                                    decryptDocumentsFolder(withPrivateKey: privateKey)
+//                                } else {
+//                                    // Handle the case when private key is nil (not found in Keychain)
+//                                    showAlert = true // Set a flag to show an error alert
+//                                }
+//                            } catch {
+//                                // Handle other errors from getPrivateKeyFromKeychain
+//                                print("Error: \(error)")
+//                                showAlert = true // Set a flag to show an error alert
+//                            }
+//                        }
+//                    }) {
+//                        Text("Unlock")
+//                            .font(.title)
+//                            .padding()
+//                            .background(Color.blue)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(10)
+//                    }
+//                    .alert(isPresented: $showAlert) {
+//                        Alert(
+//                            title: Text("Error"),
+//                            message: Text("Failed to retrieve private key."),
+//                            dismissButton: .default(Text("OK"))
+//                        )
+//                    }
+//                    .padding(.bottom, 20) // Add padding to move the button down
+//                    .padding(.top, -10) // Add negative padding to balance the spacing
+//
+//                    Spacer()
+//                }
+//                .navigationBarTitle("Secure Folder")
+//                .toolbar {
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        lockButton
+//                    }
+//                }
+//            }
+//            .tabItem {
+//                Image(systemName: "house")
+//                Text("Home")
+//            }
+//
+//            NavigationView {
+//                ProfileView()
+//            }
+//            .tabItem {
+//                Image(systemName: "person")
+//                Text("Profile")
+//            }
+//        }
+//        .navigationViewStyle(StackNavigationViewStyle())
+//    }
+
     func lockedTabView() -> some View {
         TabView {
             NavigationView {
                 VStack {
+                    Spacer()
                     Image(systemName: "lock.fill")
                         .font(.system(size: 80))
                         .foregroundColor(.red)
@@ -76,15 +151,16 @@ struct HomePageView: View {
                         if !isLocked {
                             do {
                                 if let privateKey = try getPrivateKeyFromKeychain() {
-                                    decryptDocumentsFolder(withPrivateKey: privateKey)
+                                    try decryptDocumentsFolder(withPrivateKey: privateKey)
+                                    showAlertWithMessage("MainFolder Successfully Unlocked")
                                 } else {
                                     // Handle the case when private key is nil (not found in Keychain)
-                                    showAlert = true // Set a flag to show an error alert
+                                    showAlertWithMessage("Error: Failed to retrieve private key.")
                                 }
                             } catch {
                                 // Handle other errors from getPrivateKeyFromKeychain
                                 print("Error: \(error)")
-                                showAlert = true // Set a flag to show an error alert
+                                showAlertWithMessage("Error: Failed to retrieve private key.")
                             }
                         }
                     }) {
@@ -97,8 +173,8 @@ struct HomePageView: View {
                     }
                     .alert(isPresented: $showAlert) {
                         Alert(
-                            title: Text("Error"),
-                            message: Text("Failed to retrieve private key."),
+                            title: Text("Success"),
+                            message: Text(alertMessage),
                             dismissButton: .default(Text("OK"))
                         )
                     }
@@ -129,7 +205,7 @@ struct HomePageView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-  
+
     // View displayed when folder is unlocked
     func unlockedView() -> some View {
         TabView {
@@ -286,6 +362,53 @@ struct HomePageView: View {
     
     typealias FolderOperation = () -> Void
     
+//    struct CustomRowView<Destination: View>: View {
+//        let title: String
+//        let imageName: String
+//        let tintColor: Color
+//        let destination: Destination
+//        let encryptAction: FolderOperation // Closure for encrypting
+//        let decryptAction: FolderOperation // Closure for decrypting
+//
+//        @State private var isLocked = false
+//
+//        var body: some View {
+//            VStack(spacing:0){
+//                HStack {
+//                    Spacer()
+//                    VStack(alignment: .leading, spacing: 0) {
+//                        NavigationLink(destination: destination) {
+//                            EmptyView() // Set the label to EmptyView to hide the arrow
+//                        }
+//                        .disabled(isLocked) // Disable the NavigationLink when locked
+//                        .opacity(0) // Set opacity to 0 to hide any possible empty space from the hidden arrow
+//
+//                        SettingsRowView(imageName: imageName, title: title, tintColor: isLocked ? .gray : tintColor)
+//                            .opacity(isLocked ? 0.5 : 1.0) // Adjust the opacity when locked
+//                    }
+//
+//                    Spacer()
+//
+//                    Button(action: {
+//                        isLocked.toggle()
+//
+//                        if isLocked {
+//                            encryptAction() // Call the encrypt function
+//                        } else {
+//                            decryptAction() // Call the decrypt function
+//                        }
+//                    }) {
+//                        Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
+//                            .foregroundColor(isLocked ? .red : .blue)
+//                            .padding(.top, 8)
+//                    }
+//                    .buttonStyle(.plain)
+//                }
+//            }
+//            .padding(.vertical, 3)
+//        }
+//    }
+    
     struct CustomRowView<Destination: View>: View {
         let title: String
         let imageName: String
@@ -295,6 +418,8 @@ struct HomePageView: View {
         let decryptAction: FolderOperation // Closure for decrypting
 
         @State private var isLocked = false
+        @State private var showAlert = false
+        @State private var alertMessage = ""
 
         var body: some View {
             VStack(spacing:0){
@@ -318,8 +443,10 @@ struct HomePageView: View {
 
                         if isLocked {
                             encryptAction() // Call the encrypt function
+                            showAlertWithMessage("\(title) Folder Locked Successfully")
                         } else {
                             decryptAction() // Call the decrypt function
+                            showAlertWithMessage("\(title) Folder Unlocked Successfully")
                         }
                     }) {
                         Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
@@ -330,10 +457,48 @@ struct HomePageView: View {
                 }
             }
             .padding(.vertical, 3)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+        }
+
+        private func showAlertWithMessage(_ message: String) {
+            alertMessage = message
+            showAlert = true
         }
     }
 
     // Lock button in the top-right corner
+//    var lockButton: some View {
+//        Button(action: {
+//            isLocked.toggle() // Lock or unlock the folder
+//            Task {
+//                do {
+//                    if isLocked {
+//                        let publicKey = try await getPublicKey()
+//                        try? encryptDocumentsFolder(withPublicKey: publicKey)
+//                    } else {
+//                        if let privateKey = try getPrivateKeyFromKeychain() {
+//                            try? decryptDocumentsFolder(withPrivateKey: privateKey)
+//                        } else {
+//                            // Handle the case when private key is nil (not found in Keychain)
+//                            showAlert = true // Set a flag to show an error alert
+//                        }
+//                    }
+//                } catch {
+//                    showAlert = true
+//                    print("Error: \(error)")
+//                }
+//            }
+//        }) {
+//            Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
+//                .font(.title)
+//                .imageScale(.medium)
+//        }
+//        .padding(.trailing)
+//        .disabled(isLocked) // Disable the lock button when the folder is locked
+//    }
+
     var lockButton: some View {
         Button(action: {
             isLocked.toggle() // Lock or unlock the folder
@@ -342,17 +507,18 @@ struct HomePageView: View {
                     if isLocked {
                         let publicKey = try await getPublicKey()
                         try? encryptDocumentsFolder(withPublicKey: publicKey)
+                        showAlertWithMessage("MainFolder Successfully Locked")
                     } else {
                         if let privateKey = try getPrivateKeyFromKeychain() {
                             try? decryptDocumentsFolder(withPrivateKey: privateKey)
+                            showAlertWithMessage("MainFolder Successfully Unlocked")
                         } else {
                             // Handle the case when private key is nil (not found in Keychain)
-                            showAlert = true // Set a flag to show an error alert
+                            showAlertWithMessage("Error: Private key not found.")
                         }
                     }
                 } catch {
-                    showAlert = true
-                    print("Error: \(error)")
+                    showAlertWithMessage("Error: \(error)")
                 }
             }
         }) {
@@ -362,8 +528,16 @@ struct HomePageView: View {
         }
         .padding(.trailing)
         .disabled(isLocked) // Disable the lock button when the folder is locked
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
     }
-    
+
+    private func showAlertWithMessage(_ message: String) {
+        alertMessage = message
+        showAlert = true
+    }
+
     // Get the public key from Firestore
     private func getPublicKey() async throws -> SecKey {
         guard let uid = Auth.auth().currentUser?.uid else {

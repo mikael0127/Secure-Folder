@@ -178,37 +178,37 @@ func decryptData(_ encryptedData: Data, privateKey: SecKey) throws -> Data {
     return decryptedData
 }
 
-//func decryptDocumentsFolder(withPrivateKey privateKey: SecKey) {
-//    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//    let encryptedFolderPath = documentsDirectory.appendingPathComponent("MainFolder.encrypted").path
-//    let decryptedFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
-//
-//    // Check if the decrypted folder already exists
-//    if FileManager.default.fileExists(atPath: decryptedFolderPath) {
-//        print("Decrypted folder already exists.")
-//        return
-//    }
-//
-//    do {
-//        try decryptFolder(atPath: encryptedFolderPath, privateKey: privateKey)
-//        print("Folder decryption completed.")
-//    } catch {
-//        print("Error decrypting folder: \(error)")
-//    }
-//}
+func encryptDocumentsFolder(withPublicKey publicKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let folderPath = documentsDirectory.appendingPathComponent("MainFolder").path
 
-//func encryptDocumentsFolder(withPublicKey publicKey: SecKey) {
-//    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//    let folderPath = documentsDirectory.appendingPathComponent("MainFolder").path
-//
-//    do {
-//        let key = SymmetricKey(size: .bits256)
-//        try encryptFolder(atPath: folderPath, withKey: key, publicKey: publicKey)
-//        print("Folder encryption completed.")
-//    } catch {
-//        print("Error encrypting folder: \(error)")
-//    }
-//}
+    do {
+        let key = SymmetricKey(size: .bits256)
+        try encryptMainFolder(atPath: folderPath, withKey: key, publicKey: publicKey)
+        print("Folder encryption completed.")
+    } catch {
+        print("Error encrypting folder: \(error)")
+    }
+}
+
+func decryptDocumentsFolder(withPrivateKey privateKey: SecKey) {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let encryptedFolderPath = documentsDirectory.appendingPathComponent("MainFolder.encrypted").path
+    let decryptedFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
+
+    // Check if the decrypted folder already exists
+    if FileManager.default.fileExists(atPath: decryptedFolderPath) {
+        print("Decrypted folder already exists.")
+        return
+    }
+
+    do {
+        try decryptMainFolder(atPath: encryptedFolderPath, privateKey: privateKey)
+        print("Folder decryption completed.")
+    } catch {
+        print("Error decrypting folder: \(error)")
+    }
+}
 
 func encryptPhotosFolder(withPublicKey publicKey: SecKey) {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -374,38 +374,6 @@ func decryptContactsFolder(withPrivateKey privateKey: SecKey) {
     }
 }
 
-
-func encryptDocumentsFolder(withPublicKey publicKey: SecKey) {
-    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    let folderPath = documentsDirectory.appendingPathComponent("MainFolder").path
-
-    do {
-        let key = SymmetricKey(size: .bits256)
-        try encryptMainFolder(atPath: folderPath, withKey: key, publicKey: publicKey)
-        print("Folder encryption completed.")
-    } catch {
-        print("Error encrypting folder: \(error)")
-    }
-}
-
-func decryptDocumentsFolder(withPrivateKey privateKey: SecKey) {
-    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    let encryptedFolderPath = documentsDirectory.appendingPathComponent("MainFolder.encrypted").path
-    let decryptedFolderPath = documentsDirectory.appendingPathComponent("MainFolder").path
-
-    // Check if the decrypted folder already exists
-    if FileManager.default.fileExists(atPath: decryptedFolderPath) {
-        print("Decrypted folder already exists.")
-        return
-    }
-
-    do {
-        try decryptMainFolder(atPath: encryptedFolderPath, privateKey: privateKey)
-        print("Folder decryption completed.")
-    } catch {
-        print("Error decrypting folder: \(error)")
-    }
-}
 func encryptMainFolder(atPath path: String, withKey key: SymmetricKey, publicKey: SecKey) throws {
     let fileManager = FileManager.default
     let folderURL = URL(fileURLWithPath: path)
@@ -506,7 +474,3 @@ func decryptMainFolder(atPath path: String, privateKey: SecKey) throws {
 
     try fileManager.moveItem(at: mainFolderURL, to: decryptedFolderURL)
 }
-
-
-
-
