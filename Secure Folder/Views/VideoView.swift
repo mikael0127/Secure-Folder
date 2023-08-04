@@ -1,5 +1,5 @@
 //
-//  VideoView.swift
+//  DocumentView.swift
 //  Secure Folder
 //
 //  Created by Bryan Loh on 15/6/23.
@@ -87,32 +87,47 @@ struct VideoView: View {
                 
         .navigationTitle("Videos")
         .toolbar {
-            if isSelecting {
+            if !urls.isEmpty {
+                if isSelecting {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack {
+                            Button {
+                                FileSharing.shared.message(selected)
+                            } label: {
+                                HStack {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                    
+                                    Text("Share")
+                                }
+                            }
+                            
+                            Button {
+                                delete(urls: selected)
+                            } label: {
+                                Image(systemName: "trash")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.red)
+                                    .frame(width: 20, height: 20)
+                            }
+                            
+                        }
+                        
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        FileSharing.shared.message(selected)
+                        if isSelecting { selected.removeAll() }
+                        isSelecting.toggle()
                     } label: {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                            
-                            Text("Share")
-                        }
+                        Text(isSelecting ? "Cancel" : "Select")
                     }
                 }
             }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    if isSelecting { selected.removeAll() }
-                    isSelecting.toggle()
-                } label: {
-                    Text(isSelecting ? "Cancel" : "Select")
-                }
-            }
-            
         }
         
     }
@@ -124,10 +139,12 @@ struct VideoView: View {
         read()
     }
     
+    private let directoryName = "MainFolder/Videos"
+    
     private func save(url: URL) {
         let fileURLComponents = FileURLComponents(
             fileName: url.lastPathComponent,
-            directoryName: "MainFolder/Videos",
+            directoryName: directoryName,
             directoryPath: .documentDirectory
         )
         do {
@@ -140,9 +157,21 @@ struct VideoView: View {
     }
     
     private func read() {
-        let items = File.read(from: "MainFolder/Videos", at: .documentDirectory)
+        let items = File.read(from: directoryName, at: .documentDirectory)
         self.urls = items
         print("read: \(items)")
+    }
+    
+    private func delete(urls: [URL]) {
+        for url in urls {
+            let fileURLComponents = FileURLComponents(
+                fileName: url.lastPathComponent,
+                directoryName: directoryName,
+                directoryPath: .documentDirectory
+            )
+            _ = try? File.delete(fileURLComponents)
+        }
+        read()
     }
     
 }

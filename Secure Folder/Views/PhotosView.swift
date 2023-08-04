@@ -1,44 +1,42 @@
 //
-//  DocumentView.swift
+//  PhotosView.swift
 //  Secure Folder
 //
-//  Created by Bryan Loh on 15/6/23.
+//  Created by Bryan Loh on 4/8/23.
 //
 
 import Foundation
 import SwiftUI
+import MediaPicker
 
-struct DocumentView: View {
-    
+struct PhotosView: View {
     @State var urls: [URL] = []
-    @State var isShowingDocumentsPicker = false
+    @State var isShowingMediaPicker = false
     
     @State private var isSelecting: Bool = false
     @State private var selected: [URL] = []
     
     var selectButton: some View {
         Button {
-            isShowingDocumentsPicker = true
+            isShowingMediaPicker = true
         } label: {
             HStack {
-                Text("Add New Document(s)")
-                Image(systemName: "doc")
+                Text("Add New Photo(s)")
+                Image(systemName: "photo.artframe")
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .fileImporter(
-            isPresented: $isShowingDocumentsPicker,
-//            allowedContentTypes: [.text, .pdf, .audio, .epub, ],
-            allowedContentTypes: [.item],
-            allowsMultipleSelection: true)
-        { result in
-            do {
-                let urls = try result.get()
+        .mediaImporter(
+            isPresented: $isShowingMediaPicker,
+            allowedMediaTypes: .images,
+            allowsMultipleSelection: true
+        ) { result in
+            switch result {
+            case .success(let urls):
                 save(urls: urls)
-            } catch {
-                print("failed to select docs: \(error.localizedDescription)")
+            case .failure(let error):
+                print(error)
             }
-            
         }
     }
     
@@ -46,35 +44,53 @@ struct DocumentView: View {
         
         List {
             Section {
-                ForEach(urls, id: \.absoluteString) { url in
-                    ZStack(alignment: .trailing) {
-                        Text(url.lastPathComponent)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        if isSelecting {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 24, height: 24)
-                                
-                                Image(systemName: "checkmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.green)
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .center, spacing: 4) {
+                    ForEach(urls, id: \.absoluteString) { url in
+                        ZStack(alignment: .topTrailing) {
+                            switch try! url.resourceValues(forKeys: [.contentTypeKey]).contentType! {
+                            case let contentType where contentType.conforms(to: .image):
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 150)
+                                        .aspectRatio(1, contentMode: .fill)
+                                        .clipped()
+                                        .cornerRadius(12)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                            default:
+                                Text("Can't display \(url.lastPathComponent)")
                             }
-                            .opacity(selected.contains(url) ? 1 : 0)
+                            
+                            if isSelecting {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white)
+                                        .frame(width: 24, height: 24)
+                                    
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.green)
+                                }
+                                .opacity(selected.contains(url) ? 1 : 0)
+                                .padding(5)
+                            }
                         }
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        guard isSelecting else { return }
-                        if selected.contains(url) {
-                            selected.removeAll(where: { $0 == url })
-                        } else {
-                            selected.append(url)
+                        .onTapGesture {
+                            guard isSelecting else { return }
+                            if selected.contains(url) {
+                                selected.removeAll(where: { $0 == url })
+                            } else {
+                                selected.append(url)
+                            }
                         }
                     }
                 }
+                .animation(.default, value: urls)
+                
             } header: {
                 selectButton
             }
@@ -83,7 +99,7 @@ struct DocumentView: View {
             read()
         }
                 
-        .navigationTitle("Documents")
+        .navigationTitle("Videos")
         .toolbar {
             if !urls.isEmpty {
                 if isSelecting {
@@ -137,12 +153,9 @@ struct DocumentView: View {
         read()
     }
     
-    private let directoryName = "MainFolder/Documents"
+    private let directoryName = "MainFolder/Photos"
     
     private func save(url: URL) {
-        guard url.startAccessingSecurityScopedResource() else { return }
-        // We have to stop accessing the resource no matter what
-        defer { url.stopAccessingSecurityScopedResource() }
         let fileURLComponents = FileURLComponents(
             fileName: url.lastPathComponent,
             directoryName: directoryName,
@@ -177,8 +190,8 @@ struct DocumentView: View {
     
 }
 
-struct DocumentView_Previews: PreviewProvider {
+struct PhotosView_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentView()
+        PhotosView()
     }
 }
