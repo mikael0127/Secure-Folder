@@ -123,7 +123,7 @@
 //    }
 //}
 
-// Mikael Attempt 2
+// Bryan Attempt 22398471982374
 import Foundation
 import SwiftUI
 import _PhotosUI_SwiftUI
@@ -144,6 +144,8 @@ struct PhotoView: View {
     @State private var selectedItems = [PhotosPickerItem]()
     @State private var selectedImages = [UIImage]()
     @State private var imageFilenames: [String] = [] // Store image filenames
+    @State private var isSelecting: Bool = false
+    @State private var selected: [UIImage] = []
     
     init() {
         UINavigationBar.appearance().backgroundColor = .clear
@@ -153,17 +155,42 @@ struct PhotoView: View {
     
     var body: some View {
         
-        NavigationStack {
+//        NavigationStack {
             VStack {
                 if selectedImages.count > 0 {
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 4) { // Adjust spacing here
                             ForEach(selectedImages, id: \.self) { img in
-                                Image(uiImage: img)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
-                                    .cornerRadius(10)
+                                ZStack(alignment: .topTrailing) {
+                                    Image(uiImage: img)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 200)
+                                        .cornerRadius(10)
+                                    
+                                    if isSelecting {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color.white)
+                                                .frame(width: 24, height: 24)
+                                            
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .resizable()
+                                                .frame(width: 24, height: 24)
+                                                .foregroundColor(.green)
+                                        }
+                                        .opacity(selected.contains(img) ? 1 : 0)
+                                    }
+                                }
+                                .onTapGesture {
+                                    guard isSelecting else { return }
+                                    if selected.contains(img) {
+                                        selected.removeAll(where: { $0 == img })
+                                    } else {
+                                        selected.append(img)
+                                    }
+                                }
+                                
                             }
                         }
                         .padding(.horizontal)
@@ -180,6 +207,7 @@ struct PhotoView: View {
                 PhotosPicker(selection: $selectedItems, matching: .any(of: [.images, .not(.videos)])) {
                     Label("Add New Photo(s)", systemImage: "photo.artframe")
                 }
+                .padding()
                 .onChange(of: selectedItems) { newValue in
                     Task {
                         selectedImages = []
@@ -199,15 +227,37 @@ struct PhotoView: View {
             }
             .navigationTitle("Photos")
             .toolbar {
+                
+                if isSelecting {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            FileSharing.shared.message(selected)
+                        } label: {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                
+                                Text("Share")
+                            }
+                        }
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         // Perform the desired action upon tapping the "Select" button
+                        if isSelecting { selected.removeAll() }
+                        isSelecting.toggle()
                     }) {
-                        Text("Select")
+                        Text(isSelecting ? "Cancel" : "Select")
                     }
+                    
                 }
+                
             }
-        }
+//        }
         .onAppear {
             // Retrieve image filenames from User Defaults when the view appears
             imageFilenames = loadImageFilenames()
