@@ -155,6 +155,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		135A1DD82A7E329A0000FF36 /* BackEnd */ = {
+			isa = PBXGroup;
+			children = (
+				8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */,
+				8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */,
+				8CA2DB972A443AFA003C1D70 /* Contacts.swift */,
+				135A1DD32A7E2D9A0000FF36 /* File.swift */,
+				135A1DD22A7E2D9A0000FF36 /* FileSharing.swift */,
+			);
+			path = BackEnd;
+			sourceTree = "<group>";
+		};
 		8C8CF70C2A509283002A214F /* Encryption and Decryption */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,11 +263,7 @@
 				8CA2DB932A440F53003C1D70 /* Authentication */,
 				8CA2DB912A440F3E003C1D70 /* Views */,
 				8CA2DB8F2A440EDF003C1D70 /* Components */,
-				8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */,
-				8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */,
-				8CA2DB972A443AFA003C1D70 /* Contacts.swift */,
-				135A1DD32A7E2D9A0000FF36 /* File.swift */,
-				135A1DD22A7E2D9A0000FF36 /* FileSharing.swift */,
+				135A1DD82A7E329A0000FF36 /* BackEnd */,
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
