@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		135A1DCB2A7E28830000FF36 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 135A1DCA2A7E28830000FF36 /* SwiftUI.framework */; };
+		135A1DD12A7E2B0B0000FF36 /* MediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 135A1DD02A7E2B0B0000FF36 /* MediaPicker */; };
+		135A1DD42A7E2D9A0000FF36 /* FileSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD22A7E2D9A0000FF36 /* FileSharing.swift */; };
+		135A1DD52A7E2D9A0000FF36 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD32A7E2D9A0000FF36 /* File.swift */; };
+		135A1DD72A7E306E0000FF36 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD62A7E306E0000FF36 /* PhotosView.swift */; };
 		139490AF2A61670100B2B460 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139490AE2A61670000B2B460 /* Security.framework */; };
 		139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139490B02A6A6FA400B2B460 /* HomepageRowView.swift */; };
 		8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C62592F2A36EAF600F647BA /* SplashScreenView.swift */; };
@@ -35,7 +40,6 @@
 		8CD4745B2A3D9D100064784D /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474582A3D9D0F0064784D /* FolderManager.swift */; };
 		8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474592A3D9D0F0064784D /* DocumentView.swift */; };
 		8CD4745D2A3D9D100064784D /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745A2A3D9D0F0064784D /* HomePageView.swift */; };
-		8CD474602A3D9D280064784D /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745E2A3D9D280064784D /* PhotoView.swift */; };
 		8CD474612A3D9D280064784D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745F2A3D9D280064784D /* VideoView.swift */; };
 		8CD474652A3E254E0064784D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474642A3E254E0064784D /* ResetPasswordView.swift */; };
 		8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474662A3E2AB40064784D /* CustomProgressView.swift */; };
@@ -69,8 +73,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		135A1DC82A7D716C0000FF36 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		135A1DCA2A7E28830000FF36 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		135A1DD22A7E2D9A0000FF36 /* FileSharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSharing.swift; sourceTree = "<group>"; };
+		135A1DD32A7E2D9A0000FF36 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		135A1DD62A7E306E0000FF36 /* PhotosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
 		139490AE2A61670000B2B460 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		139490B02A6A6FA400B2B460 /* HomepageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomepageRowView.swift; path = "Secure Folder/Views/HomepageRowView.swift"; sourceTree = SOURCE_ROOT; };
+		139490B22A7D6EA600B2B460 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		8C62592F2A36EAF600F647BA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		8C6259312A36F5BD00F647BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Secure Folder/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8CA2DB952A443A5B003C1D70 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
@@ -94,7 +104,6 @@
 		8CD474582A3D9D0F0064784D /* FolderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
 		8CD474592A3D9D0F0064784D /* DocumentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		8CD4745A2A3D9D0F0064784D /* HomePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
-		8CD4745E2A3D9D280064784D /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		8CD4745F2A3D9D280064784D /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		8CD474642A3E254E0064784D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		8CD474662A3E2AB40064784D /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
@@ -115,6 +124,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				135A1DCB2A7E28830000FF36 /* SwiftUI.framework in Frameworks */,
+				135A1DD12A7E2B0B0000FF36 /* MediaPicker in Frameworks */,
 				8C62593F2A36F93D00F647BA /* FirebaseDatabaseSwift in Frameworks */,
 				8C6259372A36F93D00F647BA /* FirebaseAnalyticsSwift in Frameworks */,
 				8C6259392A36F93D00F647BA /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -167,13 +178,13 @@
 		8CA2DB912A440F3E003C1D70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				135A1DD62A7E306E0000FF36 /* PhotosView.swift */,
 				8CBE8F8829E416A9000A52EC /* ContentView.swift */,
 				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
 				8CD5BAFC2A3795D7002F0C2E /* LoginView.swift */,
 				8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */,
 				8CD4745A2A3D9D0F0064784D /* HomePageView.swift */,
 				8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */,
-				8CD4745E2A3D9D280064784D /* PhotoView.swift */,
 				8CD4745F2A3D9D280064784D /* VideoView.swift */,
 				8CD474592A3D9D0F0064784D /* DocumentView.swift */,
 				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
@@ -243,6 +254,8 @@
 				8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */,
 				8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */,
 				8CA2DB972A443AFA003C1D70 /* Contacts.swift */,
+				135A1DD32A7E2D9A0000FF36 /* File.swift */,
+				135A1DD22A7E2D9A0000FF36 /* FileSharing.swift */,
 				8CBE8F8A29E416AC000A52EC /* Assets.xcassets */,
 				8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */,
 				8CBE8F8C29E416AC000A52EC /* Preview Content */,
@@ -279,6 +292,9 @@
 		8CEAD22E2A40BF33003423DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				135A1DCA2A7E28830000FF36 /* SwiftUI.framework */,
+				135A1DC82A7D716C0000FF36 /* MediaPlayer.framework */,
+				139490B22A7D6EA600B2B460 /* CoreMedia.framework */,
 				139490AE2A61670000B2B460 /* Security.framework */,
 				8CEAD22F2A40BF34003423DB /* Foundation.framework */,
 			);
@@ -309,6 +325,7 @@
 				8C62593C2A36F93D00F647BA /* FirebaseCrashlytics */,
 				8C62593E2A36F93D00F647BA /* FirebaseDatabaseSwift */,
 				8C6259402A36F93D00F647BA /* FirebaseFirestoreSwift */,
+				135A1DD02A7E2B0B0000FF36 /* MediaPicker */,
 			);
 			productName = "Secure Folder";
 			productReference = 8CBE8F8329E416A9000A52EC /* Secure Folder.app */;
@@ -384,6 +401,7 @@
 			mainGroup = 8CBE8F7A29E416A9000A52EC;
 			packageReferences = (
 				8C6259332A36F93D00F647BA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				135A1DCF2A7E2B0B0000FF36 /* XCRemoteSwiftPackageReference "SwiftUI-MediaPicker" */,
 			);
 			productRefGroup = 8CBE8F8429E416A9000A52EC /* Products */;
 			projectDirPath = "";
@@ -433,6 +451,7 @@
 				8CD5BB032A3795D7002F0C2E /* LoginView.swift in Sources */,
 				8CD474652A3E254E0064784D /* ResetPasswordView.swift in Sources */,
 				8CA2DB962A443A5B003C1D70 /* ContactModel.swift in Sources */,
+				135A1DD52A7E2D9A0000FF36 /* File.swift in Sources */,
 				8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */,
 				8CD5BB012A3795D7002F0C2E /* InputView.swift in Sources */,
 				8CD4746B2A3E2F240064784D /* AuthError.swift in Sources */,
@@ -444,7 +463,7 @@
 				139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */,
 				8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */,
 				8CD5BB022A3795D7002F0C2E /* RegistrationView.swift in Sources */,
-				8CD474602A3D9D280064784D /* PhotoView.swift in Sources */,
+				135A1DD72A7E306E0000FF36 /* PhotosView.swift in Sources */,
 				8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */,
 				8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */,
 				8CD4745D2A3D9D100064784D /* HomePageView.swift in Sources */,
@@ -452,6 +471,7 @@
 				8CA2DB9A2A443D80003C1D70 /* ContactListView.swift in Sources */,
 				8CA2DBA72A46180D003C1D70 /* CreatePasswordInAppView.swift in Sources */,
 				8CA2DB9E2A4445D6003C1D70 /* ImagePicker.swift in Sources */,
+				135A1DD42A7E2D9A0000FF36 /* FileSharing.swift in Sources */,
 				8CEAD24F2A42EBE1003423DB /* ChangePasswordView.swift in Sources */,
 				8CA2DB982A443AFA003C1D70 /* Contacts.swift in Sources */,
 				8CA2DBA52A458951003C1D70 /* EncryptionDecryption.swift in Sources */,
@@ -541,7 +561,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -595,7 +615,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -623,6 +643,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = App;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -657,6 +678,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = App;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -787,6 +809,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		135A1DCF2A7E2B0B0000FF36 /* XCRemoteSwiftPackageReference "SwiftUI-MediaPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/UWAppDev/SwiftUI-MediaPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 		8C6259332A36F93D00F647BA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -798,6 +828,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		135A1DD02A7E2B0B0000FF36 /* MediaPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 135A1DCF2A7E2B0B0000FF36 /* XCRemoteSwiftPackageReference "SwiftUI-MediaPicker" */;
+			productName = MediaPicker;
+		};
 		8C6259342A36F93D00F647BA /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8C6259332A36F93D00F647BA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -99,7 +99,7 @@ struct PhotosView: View {
             read()
         }
                 
-        .navigationTitle("Videos")
+        .navigationTitle("Photos")
         .toolbar {
             if !urls.isEmpty {
                 if isSelecting {
