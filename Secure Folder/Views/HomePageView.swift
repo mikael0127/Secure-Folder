@@ -327,7 +327,6 @@ struct HomePageView: View {
         let encryptAction: FolderOperation // Closure for encrypting
         let decryptAction: FolderOperation // Closure for decrypting
 
-        //@State private var isLocked = false
         @Binding var isLocked: Bool
         @State private var showAlert = false
         @State private var alertMessage = ""

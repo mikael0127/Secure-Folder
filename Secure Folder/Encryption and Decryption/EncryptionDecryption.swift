@@ -374,108 +374,6 @@ func decryptContactsFolder(withPrivateKey privateKey: SecKey) {
     }
 }
 
-//func encryptMainFolder(atPath path: String, withKey key: SymmetricKey, publicKey: SecKey) throws {
-//    let fileManager = FileManager.default
-//    let folderURL = URL(fileURLWithPath: path)
-//    // Get the URLs of all files and directories within the folder
-//    let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
-//
-//    for fileURL in fileURLs {
-//        // Check if the URL represents a directory
-//        if fileManager.isDirectory(url: fileURL) {
-//            // Check if the subfolder already has the ".encrypted" extension
-//            if fileURL.pathExtension == "encrypted" {
-//                // If it's already encrypted, skip encryption for this subfolder
-//                continue
-//            } else {
-//                // Recursively encrypt subfolders that are not already encrypted
-//                try encryptFolder(atPath: fileURL.path, withKey: key, publicKey: publicKey)
-//            }
-//        } else {
-//            // Encrypt individual file
-//            // Create a new URL for the encrypted file
-//            let encryptedFileURL = fileURL.appendingPathExtension("encrypted")
-//            // Encrypt the file using the specified symmetric key
-//            try encryptFile(atPath: fileURL.path, toPath: encryptedFileURL.path, withKey: key)
-//
-//            // Encrypt the symmetric key with the recipient's public key
-//            let encryptedKeyData = try encryptData(key.withUnsafeBytes { Data($0) }, publicKey: publicKey)
-//
-//            // Combine the encrypted symmetric key and the encrypted data into a single Data object
-//            var combinedData = Data()
-//            combinedData.append(encryptedKeyData)
-//            combinedData.append(try Data(contentsOf: encryptedFileURL))
-//
-//            // Write the combined encrypted data (including the symmetric key) to the .encrypted file
-//            try combinedData.write(to: encryptedFileURL)
-//
-//            // Remove the original unencrypted file
-//            try fileManager.removeItem(at: fileURL)
-//        }
-//    }
-//    // Move the entire folder to a new location with the "encrypted" extension
-//    let mainFolderURL = URL(fileURLWithPath: path)
-//    let encryptedFolderURL = mainFolderURL.appendingPathExtension("encrypted")
-//
-//    try fileManager.moveItem(at: mainFolderURL, to: encryptedFolderURL)
-//}
-
-//func decryptMainFolder(atPath path: String, privateKey: SecKey) throws {
-//    let fileManager = FileManager.default
-//    let folderURL = URL(fileURLWithPath: path)
-//    // Get the URLs of all files and directories within the folder
-//    let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
-//
-//    for fileURL in fileURLs {
-//        // Check if the URL represents a directory
-//        if fileManager.isDirectory(url: fileURL) {
-//            // Check if the subfolder already has the ".encrypted" extension
-//            if fileURL.pathExtension == "encrypted" {
-//                // Recursively decrypt subfolders that are encrypted
-//                try decryptFolder(atPath: fileURL.path, privateKey: privateKey)
-//            } else {
-//                // If it's not encrypted, continue to the next subfolder
-//                continue
-//            }
-//        } else {
-//            // Decrypt individual file
-//            // Check if the file has the ".encrypted" extension
-//            if fileURL.pathExtension == "encrypted" {
-//                let decryptedFileURL = fileURL.deletingPathExtension()
-//
-//                // Read the encrypted data (including the encrypted symmetric key) from the .encrypted file
-//                let encryptedData = try Data(contentsOf: fileURL)
-//
-//                // Separate the encrypted symmetric key and the encrypted data from the combined encrypted data
-//                let encryptedKeyData = encryptedData.prefix(256) // Assuming the RSA encrypted key is 256 bytes (2048 bits)
-//
-//                // Decrypt the symmetric key using the recipient's private key
-//                let decryptedKeyData = try decryptData(encryptedKeyData, privateKey: privateKey)
-//                let symmetricKey = try SymmetricKey(data: decryptedKeyData)
-//
-//                // Decrypt the actual data within the file using the decrypted symmetric key
-//                let encryptedFileData = encryptedData.suffix(from: 256) // Remove the RSA encrypted key part
-//                let decryptedData = try ChaChaPoly.open(ChaChaPoly.SealedBox(combined: encryptedFileData), using: symmetricKey)
-//
-//                // Write the decrypted data to the new file (without the .encrypted extension)
-//                try decryptedData.write(to: decryptedFileURL)
-//
-//                // Remove the original encrypted file
-//                try fileManager.removeItem(at: fileURL)
-//            } else {
-//                // If it's not encrypted, continue to the next file
-//                continue
-//            }
-//        }
-//    }
-//    // Move the entire folder back to its original location without the "encrypted" extension
-//    let mainFolderURL = URL(fileURLWithPath: path)
-//    let decryptedFolderURL = mainFolderURL.deletingPathExtension()
-//
-//    try fileManager.moveItem(at: mainFolderURL, to: decryptedFolderURL)
-//}
-
-// attempt 2
 func encryptMainFolder(atPath path: String, withKey key: SymmetricKey, publicKey: SecKey) throws {
     let fileManager = FileManager.default
     let folderURL = URL(fileURLWithPath: path)
@@ -487,8 +385,7 @@ func encryptMainFolder(atPath path: String, withKey key: SymmetricKey, publicKey
         if fileManager.isDirectory(url: fileURL) {
             // Check if the subfolder already has the ".encrypted" extension
             if fileURL.pathExtension == "encrypted" {
-                // If it's already encrypted, skip encryption for this subfolder
-                // If it's already encrypted, mark the subfolder as locked
+                // If it's already encrypted, mark the subfolder as locked and skip encryption for this subfolder
                 let lockedSubfolderURL = fileURL.deletingLastPathComponent().appendingPathComponent(fileURL.lastPathComponent + ".islocked")
                 try fileManager.moveItem(at: fileURL, to: lockedSubfolderURL)
                 continue
