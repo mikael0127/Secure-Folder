@@ -19,6 +19,11 @@ struct HomePageView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     
+    @State private var isPhotosFolderLocked = false
+    @State private var isVideosFolderLocked = false
+    @State private var isContactsFolderLocked = false
+    @State private var isDocumentsFolderLocked = false
+    
     private func initializeFolderState() {
         guard !isFolderStateInitialized else { return } // Check if folder state is already initialized
 
@@ -40,6 +45,27 @@ struct HomePageView: View {
         
         let isPrivateKeyStored = isPrivateKeyStoredInKeychain()     // To check if private key is saved or not
         print("Is private key stored in Keychain? \(isPrivateKeyStored)")
+        
+        let isEncryptedPhotosFolderPresent = FolderManager.isEncryptedPhotosFolderPresent()
+        let isEncryptedVideosFolderPresent = FolderManager.isEncryptedVideosFolderPresent()
+        let isEncryptedContactsFolderPresent = FolderManager.isEncryptedContactsFolderPresent()
+        let isEncryptedDocumentsFolderPresent = FolderManager.isEncryptedDocumentsFolderPresent()
+        
+        if isEncryptedPhotosFolderPresent {
+            isPhotosFolderLocked = true
+        }
+        
+        if isEncryptedVideosFolderPresent {
+            isVideosFolderLocked = true
+        }
+        
+        if isEncryptedContactsFolderPresent {
+            isContactsFolderLocked = true
+        }
+        
+        if isEncryptedDocumentsFolderPresent {
+            isDocumentsFolderLocked = true
+        }
     }
 
     var body: some View {
@@ -165,7 +191,9 @@ struct HomePageView: View {
                                                     print("Private key is nil.")
                                                 }
                                             }
-                                        }
+                                     },
+                                     isLocked: $isPhotosFolderLocked
+                                      
                         )
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
                       
@@ -196,7 +224,8 @@ struct HomePageView: View {
                                                     print("Private key is nil.")
                                                 }
                                             }
-                                        }
+                                      },
+                                      isLocked: $isVideosFolderLocked
                         )
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
                         
@@ -227,7 +256,8 @@ struct HomePageView: View {
                                                     print("Private key is nil.")
                                                 }
                                             }
-                                        }
+                                      },
+                                      isLocked: $isContactsFolderLocked
                         )
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
                         
@@ -258,7 +288,8 @@ struct HomePageView: View {
                                                     print("Private key is nil.")
                                                 }
                                             }
-                                        }
+                                      },
+                                      isLocked: $isDocumentsFolderLocked
                         )
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 13, trailing: 20))
                     }
@@ -296,7 +327,8 @@ struct HomePageView: View {
         let encryptAction: FolderOperation // Closure for encrypting
         let decryptAction: FolderOperation // Closure for decrypting
 
-        @State private var isLocked = false
+        //@State private var isLocked = false
+        @Binding var isLocked: Bool
         @State private var showAlert = false
         @State private var alertMessage = ""
 

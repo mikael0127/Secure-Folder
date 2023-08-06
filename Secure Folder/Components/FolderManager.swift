@@ -48,4 +48,28 @@ class FolderManager {
         let decryptedFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MainFolder")
         return FileManager.default.fileExists(atPath: decryptedFolderURL.path)
     }
+    
+    static func isEncryptedPhotosFolderPresent() -> Bool {
+        let mainFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MainFolder")
+        let encryptedPhotosFolderURL = mainFolderURL.appendingPathComponent("Photos.encrypted")
+        return FileManager.default.fileExists(atPath: encryptedPhotosFolderURL.path)
+    }
+    
+    static func isEncryptedVideosFolderPresent() -> Bool {
+        let mainFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MainFolder")
+        let encryptedPhotosFolderURL = mainFolderURL.appendingPathComponent("Videos.encrypted")
+        return FileManager.default.fileExists(atPath: encryptedPhotosFolderURL.path)
+    }
+    
+    static func isEncryptedContactsFolderPresent() -> Bool {
+        let mainFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MainFolder")
+        let encryptedPhotosFolderURL = mainFolderURL.appendingPathComponent("Contacts.encrypted")
+        return FileManager.default.fileExists(atPath: encryptedPhotosFolderURL.path)
+    }
+    
+    static func isEncryptedDocumentsFolderPresent() -> Bool {
+        let mainFolderURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MainFolder")
+        let encryptedPhotosFolderURL = mainFolderURL.appendingPathComponent("Documents.encrypted")
+        return FileManager.default.fileExists(atPath: encryptedPhotosFolderURL.path)
+    }
 }
