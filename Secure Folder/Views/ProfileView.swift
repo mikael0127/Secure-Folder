@@ -11,6 +11,7 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
+    @EnvironmentObject var lockManager: LockManager
     
     var body: some View {
         ZStack {
@@ -65,7 +66,8 @@ struct ProfileView: View {
                             )
                             
                             Button {
-                                viewModel.signOut()
+                                viewModel.signOut(lockManager.isLocked)
+                                print("Sign Out success from profile view with islocked = \(lockManager.isLocked)")
                             } label: {
                                 SettingsRowView(imageName: "arrow.left.circle.fill",
                                                 title: "Sign Out",
@@ -103,5 +105,6 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView()
             .environmentObject(AuthViewModel())
             .environmentObject(InactivityTimerManager())
+            .environmentObject(LockManager())
     }
 }

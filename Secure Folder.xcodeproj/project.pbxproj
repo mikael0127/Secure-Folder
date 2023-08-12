@@ -13,6 +13,7 @@
 		135A1DD52A7E2D9A0000FF36 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD32A7E2D9A0000FF36 /* File.swift */; };
 		135A1DD72A7E306E0000FF36 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD62A7E306E0000FF36 /* PhotosView.swift */; };
 		135A1DDA2A868ABD0000FF36 /* InactivityTimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD92A868ABD0000FF36 /* InactivityTimerManager.swift */; };
+		135A1DDC2A878BC00000FF36 /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DDB2A878BC00000FF36 /* LockManager.swift */; };
 		139490AF2A61670100B2B460 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139490AE2A61670000B2B460 /* Security.framework */; };
 		139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139490B02A6A6FA400B2B460 /* HomepageRowView.swift */; };
 		8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C62592F2A36EAF600F647BA /* SplashScreenView.swift */; };
@@ -29,7 +30,6 @@
 		8CA2DB9D2A4445D6003C1D70 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */; };
 		8CA2DB9E2A4445D6003C1D70 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */; };
 		8CA2DBA52A458951003C1D70 /* EncryptionDecryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */; };
-		8CA2DBA72A46180D003C1D70 /* CreatePasswordInAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA2DBA62A46180D003C1D70 /* CreatePasswordInAppView.swift */; };
 		8CB417F52A3875C3007FBE2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */; };
 		8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */; };
 		8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBE8F8829E416A9000A52EC /* ContentView.swift */; };
@@ -80,6 +80,7 @@
 		135A1DD32A7E2D9A0000FF36 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		135A1DD62A7E306E0000FF36 /* PhotosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
 		135A1DD92A868ABD0000FF36 /* InactivityTimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityTimerManager.swift; sourceTree = "<group>"; };
+		135A1DDB2A878BC00000FF36 /* LockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockManager.swift; sourceTree = "<group>"; };
 		139490AE2A61670000B2B460 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		139490B02A6A6FA400B2B460 /* HomepageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomepageRowView.swift; path = "Secure Folder/Views/HomepageRowView.swift"; sourceTree = SOURCE_ROOT; };
 		139490B22A7D6EA600B2B460 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -91,7 +92,6 @@
 		8CA2DB9B2A4445D5003C1D70 /* FilePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		8CA2DB9C2A4445D5003C1D70 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8CA2DBA42A458951003C1D70 /* EncryptionDecryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionDecryption.swift; sourceTree = "<group>"; };
-		8CA2DBA62A46180D003C1D70 /* CreatePasswordInAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordInAppView.swift; sourceTree = "<group>"; };
 		8CB417F42A3875C3007FBE2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8CBE8F8329E416A9000A52EC /* Secure Folder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Secure Folder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBE8F8629E416A9000A52EC /* Secure_FolderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure_FolderApp.swift; sourceTree = "<group>"; };
@@ -186,6 +186,7 @@
 				8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */,
 				8CD474582A3D9D0F0064784D /* FolderManager.swift */,
 				135A1DD92A868ABD0000FF36 /* InactivityTimerManager.swift */,
+				135A1DDB2A878BC00000FF36 /* LockManager.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -205,7 +206,6 @@
 				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
 				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
 				8CA2DB992A443D80003C1D70 /* ContactListView.swift */,
-				8CA2DBA62A46180D003C1D70 /* CreatePasswordInAppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -475,13 +475,13 @@
 				139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */,
 				8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */,
 				8CD5BB022A3795D7002F0C2E /* RegistrationView.swift in Sources */,
+				135A1DDC2A878BC00000FF36 /* LockManager.swift in Sources */,
 				135A1DD72A7E306E0000FF36 /* PhotosView.swift in Sources */,
 				8CBE8F8729E416A9000A52EC /* Secure_FolderApp.swift in Sources */,
 				8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */,
 				8CD4745D2A3D9D100064784D /* HomePageView.swift in Sources */,
 				8CD4745B2A3D9D100064784D /* FolderManager.swift in Sources */,
 				8CA2DB9A2A443D80003C1D70 /* ContactListView.swift in Sources */,
-				8CA2DBA72A46180D003C1D70 /* CreatePasswordInAppView.swift in Sources */,
 				8CA2DB9E2A4445D6003C1D70 /* ImagePicker.swift in Sources */,
 				135A1DD42A7E2D9A0000FF36 /* FileSharing.swift in Sources */,
 				8CEAD24F2A42EBE1003423DB /* ChangePasswordView.swift in Sources */,

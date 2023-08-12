@@ -482,3 +482,37 @@ func decryptMainFolder(atPath path: String, privateKey: SecKey) throws {
 
     try fileManager.moveItem(at: mainFolderURL, to: decryptedFolderURL)
 }
+
+// Get the public key from Firestore
+public func getPublicKey() async throws -> SecKey {
+    guard let uid = Auth.auth().currentUser?.uid else {
+        throw EncryptionError.keyGenerationFailed
+    }
+
+    let documentSnapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+    let user = try documentSnapshot.data(as: User.self)
+
+    if !user.publicKey.isEmpty {
+        let publicKey = try publicKeyFromData(user.publicKey)
+        return publicKey
+    } else {
+        throw EncryptionError.keyGenerationFailed
+    }
+}
+
+// Convert public key data to SecKey
+public func publicKeyFromData(_ publicKeyData: Data) throws -> SecKey {
+    let keyDict: [NSObject: NSObject] = [
+        kSecAttrKeyType: kSecAttrKeyTypeRSA,
+        kSecAttrKeyClass: kSecAttrKeyClassPublic,
+        kSecAttrKeySizeInBits: NSNumber(value: 2048), // Update with your key size
+        kSecReturnPersistentRef: true as NSObject
+    ]
+
+    var error: Unmanaged<CFError>?
+    guard let publicKey = SecKeyCreateWithData(publicKeyData as CFData, keyDict as CFDictionary, &error) else {
+        throw error?.takeRetainedValue() ?? EncryptionError.keyGenerationFailed
+    }
+
+    return publicKey
+}

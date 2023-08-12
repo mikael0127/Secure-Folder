@@ -19,12 +19,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct Secure_FolderApp: App {
     @StateObject var viewModel = AuthViewModel()
+    @StateObject var inactivityTimerManager = InactivityTimerManager()
+    @StateObject var lockManager = LockManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(viewModel)
+                .environmentObject(inactivityTimerManager)
+                .environmentObject(lockManager)
         }
     }
 }

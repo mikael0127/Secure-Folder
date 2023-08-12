@@ -87,13 +87,26 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signOut() {
-        do {
-            try Auth.auth().signOut() // signs out user on backend
-            self.userSession = nil // wipes out user session and takes us back to login screen
-            self.currentUser = nil // wipes out current user data model
-        } catch {
-            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+    func signOut(_ isLocked: Bool) {
+        Task {
+            do {
+                guard let publicKey = try? await getPublicKey() else {
+                    return
+                }
+                // Check if the MainFolder is locked or not before signing out
+                if isLocked {
+                    try Auth.auth().signOut() // signs out user on backend
+                    self.userSession = nil // wipes out user session and takes us back to login screen
+                    self.currentUser = nil // wipes out current user data model
+                } else {
+                    try? encryptDocumentsFolder(withPublicKey: publicKey)
+                    try Auth.auth().signOut() // signs out user on backend
+                    self.userSession = nil // wipes out user session and takes us back to login screen
+                    self.currentUser = nil // wipes out current user data model
+                }
+            } catch {
+                print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+            }
         }
     }
     

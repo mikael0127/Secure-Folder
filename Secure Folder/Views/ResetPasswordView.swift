@@ -69,6 +69,7 @@ struct ResetPasswordView: View {
 struct ResetPasswordView_Previews: PreviewProvider {
     static var previews: some View {
         ResetPasswordView()
+            .environmentObject(AuthViewModel())
     }
 }
 
