@@ -10,6 +10,8 @@ import SwiftUI
 import MediaPicker
 
 struct PhotosView: View {
+    @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
+    
     @State var urls: [URL] = []
     @State var isShowingMediaPicker = false
     
@@ -143,8 +145,13 @@ struct PhotosView: View {
                 }
             }
         }
+        .onTapGesture {
+            // Reset the inactivity timer whenever there is user interaction
+            inactivityTimerManager.resetTimer()
+        }
         
     }
+    
     
     private func save(urls: [URL]) {
         for url in urls {
@@ -193,5 +200,6 @@ struct PhotosView: View {
 struct PhotosView_Previews: PreviewProvider {
     static var previews: some View {
         PhotosView()
+            .environmentObject(InactivityTimerManager())
     }
 }

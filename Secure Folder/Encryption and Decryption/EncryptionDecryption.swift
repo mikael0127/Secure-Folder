@@ -10,6 +10,7 @@ import SwiftUI
 import CryptoKit
 import Foundation
 import CommonCrypto
+import Firebase
 
 enum EncryptionError: Error {
     case algorithmNotSupported

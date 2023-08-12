@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DocumentView: View {
+    @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
     
     @State var urls: [URL] = []
     @State var isShowingDocumentsPicker = false
@@ -127,6 +128,10 @@ struct DocumentView: View {
                 }
             }
         }
+        .onTapGesture {
+            // Reset the inactivity timer whenever there is user interaction
+            inactivityTimerManager.resetTimer()
+        }
         
     }
     
@@ -180,5 +185,6 @@ struct DocumentView: View {
 struct DocumentView_Previews: PreviewProvider {
     static var previews: some View {
         DocumentView()
+            .environmentObject(InactivityTimerManager())
     }
 }

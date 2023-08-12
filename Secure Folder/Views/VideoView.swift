@@ -10,6 +10,8 @@ import AVKit
 import MediaPicker
 
 struct VideoView: View {
+    @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
+    
     @State var urls: [URL] = []
     @State var isShowingMediaPicker = false
     
@@ -129,6 +131,10 @@ struct VideoView: View {
                 }
             }
         }
+        .onTapGesture {
+            // Reset the inactivity timer whenever there is user interaction
+            inactivityTimerManager.resetTimer()
+        }
         
     }
     
@@ -179,6 +185,7 @@ struct VideoView: View {
 struct VideoView_Previews: PreviewProvider {
     static var previews: some View {
         VideoView()
+            .environmentObject(InactivityTimerManager())
     }
 }
 

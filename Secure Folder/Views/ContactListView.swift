@@ -87,6 +87,8 @@ class ContactPickerDelegate: NSObject, ObservableObject, CNContactPickerDelegate
 }
 
 struct ContactListView: View {
+    @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
+    
     @StateObject private var pickerDelegate = ContactPickerDelegate()
 
     var body: some View {
@@ -122,6 +124,10 @@ struct ContactListView: View {
         .onAppear {
             pickerDelegate.loadContacts()
         }
+        .onTapGesture {
+            // Reset the inactivity timer whenever there is user interaction
+            inactivityTimerManager.resetTimer()
+        }
     }
 
     private func showContactPicker() {
@@ -134,6 +140,7 @@ struct ContactListView: View {
 struct ContactListView_Previews: PreviewProvider {
     static var previews: some View {
         ContactListView()
+            .environmentObject(InactivityTimerManager())
     }
 }
 

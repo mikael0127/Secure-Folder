@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
     
     var body: some View {
         ZStack {
@@ -54,15 +55,6 @@ struct ProfileView: View {
                         }
                         
                         Section("Account") {
-//                            NavigationLink(
-//                                destination: CreatePasswordInAppView(),
-//                                label: {
-//                                    SettingsRowView(imageName: "lock.rotation",
-//                                                    title: "Create Password",
-//                                                    tintColor: Color(.systemGray))
-//                                }
-//                            )
-                            
                             NavigationLink(
                                 destination: ChangePasswordView().environmentObject(viewModel),
                                 label: {
@@ -99,6 +91,10 @@ struct ProfileView: View {
             }
         }
         .navigationBarTitle("Profile")
+        .onTapGesture {
+            // Reset the inactivity timer whenever there is user interaction
+            inactivityTimerManager.resetTimer()
+        }
     }
 }
 
@@ -106,5 +102,6 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
             .environmentObject(AuthViewModel())
+            .environmentObject(InactivityTimerManager())
     }
 }
