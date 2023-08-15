@@ -1,5 +1,5 @@
 //
-//  AuthViewFile.swift
+//  AuthViewModel.swift
 //  Secure Folder
 //
 //  Created by Mikael Denys Wijaya on 10/06/23.
@@ -81,8 +81,16 @@ class AuthViewModel: ObservableObject {
             isLoading = false
         } catch {
             let authError = AuthErrorCode.Code(rawValue: (error as NSError).code)
-            self.showAlert = true
-            self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
+            
+            switch authError {
+            case .emailAlreadyInUse: // Check for emailAlreadyInUse
+                self.showAlert = true
+                self.authError = .userExists
+            default:
+                self.showAlert = true
+                self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
+            }
+            
             isLoading = false
         }
     }
@@ -209,7 +217,7 @@ func privateKeyDataToKeychainData(_ privateKey: SecKey) throws -> Data {
 }
 
 func savePrivateKeyToKeychain(_ privateKeyData: Data) {
-    let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
+    let privateKeyTag = "user.privateKeyTag" 
 
     let query: [String: Any] = [
         kSecClass as String: kSecClassKey,
@@ -245,88 +253,3 @@ func savePrivateKeyToKeychain(_ privateKeyData: Data) {
     }
 }
 
-// draft 1
-//func savePrivateKeyToKeychain(_ privateKeyData: Data) {
-//    let privateKeyTag = "user.privateKeyTag" // Update with your private key tag
-//
-//    let query: [String: Any] = [
-//        kSecClass as String: kSecClassKey,
-//        kSecAttrApplicationTag as String: privateKeyTag,
-//        kSecAttrKeyType as String: kSecAttrKeyTypeRSA
-//    ]
-//
-//    let updateAttributes: [String: Any] = [
-//        kSecValueData as String: privateKeyData
-//    ]
-//
-//    let status = SecItemUpdate(query as CFDictionary, updateAttributes as CFDictionary)
-//
-//    if status == errSecSuccess {
-//        print("Private key updated in Keychain successfully.")
-//    } else if status == errSecItemNotFound {
-//        // The private key doesn't exist, so add it to the Keychain
-//        var addAttributes = query
-//        addAttributes[kSecValueData as String] = privateKeyData
-//
-//        let addStatus = SecItemAdd(addAttributes as CFDictionary, nil)
-//
-//        if addStatus == errSecSuccess {
-//            print("Private key stored in Keychain successfully.")
-//        } else if let error = SecCopyErrorMessageString(addStatus, nil) {
-//            print("Error saving private key to Keychain: \(error)")
-//        } else {
-//            print("Unknown error occurred while saving private key to Keychain.")
-//        }
-//    } else if let error = SecCopyErrorMessageString(status, nil) {
-//        print("Error updating private key in Keychain: \(error)")
-//    } else {
-//        print("Unknown error occurred while updating private key in Keychain.")
-//    }
-//}
-
-
-//func savePrivateKeyToKeychain(_ privateKeyData: Data) {
-//    let privateKeyTag = "com.example.privateKeyTag" // Update with your private key tag
-//
-//    let query: [String: Any] = [
-//        kSecClass as String: kSecClassKey,
-//        kSecAttrApplicationTag as String: privateKeyTag,
-//        kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
-//        kSecValueData as String: privateKeyData
-//    ]
-//
-//    let status = SecItemAdd(query as CFDictionary, nil)
-//
-//    if status == errSecSuccess {
-//        print("Private key stored in Keychain successfully.")
-//    } else if let error = SecCopyErrorMessageString(status, nil) {
-//        print("Error saving private key to Keychain: \(error)")
-//    } else {
-//        print("Unknown error occurred while saving private key to Keychain.")
-//    }
-//}
-
-
-
-
-
-// original create user
-//    func createUser(withEmail email: String, password: String, fullname: String) async throws {
-//        isLoading = true
-//
-//        do {
-//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-//            self.userSession = result.user
-//            let user = User(id: result.user.uid, fullname: fullname, email: email)
-//            guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
-//            try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser)
-//            await fetchUser()
-//            isLoading = false
-//        } catch {
-//            let authError = AuthErrorCode.Code(rawValue: (error as NSError).code)
-//            self.showAlert = true
-//            self.authError = AuthError(authErrorCode: authError ?? .userNotFound)
-//            isLoading = false
-//
-//        }
-//    }

@@ -5,6 +5,7 @@
 //  Created by Mikael Denys Wijaya on 21/06/23.
 //
 
+
 import SwiftUI
 
 struct ChangePasswordView: View {
@@ -15,6 +16,7 @@ struct ChangePasswordView: View {
     @State private var confirmPassword = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var passwordsMatch = false
     
     var body: some View {
         VStack {
@@ -46,11 +48,17 @@ struct ChangePasswordView: View {
                             .imageScale(.large)
                             .fontWeight(.bold)
                             .foregroundColor(Color(.systemGreen))
+                            .onAppear {
+                                passwordsMatch = true
+                            }
                     } else {
                         Image(systemName: "xmark.circle.fill")
                             .imageScale(.large)
                             .fontWeight(.bold)
                             .foregroundColor(Color(.systemRed))
+                            .onAppear {
+                                passwordsMatch = false
+                            }
                     }
                 }
             }
@@ -83,6 +91,8 @@ struct ChangePasswordView: View {
             .background(Color(.systemBlue))
             .cornerRadius(10)
             .padding()
+            .opacity(passwordsMatch ? 1.0 : 0.5) // Adjust the opacity based on passwords matching
+            .disabled(!passwordsMatch) // Disable the button when passwords don't match
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text(alertMessage),
@@ -91,13 +101,11 @@ struct ChangePasswordView: View {
                     }
                 )
             }
-            
         }
         .padding()
         .navigationBarTitle("Change Password")
     }
 }
-
 
 struct ChangePasswordView_Previews: PreviewProvider {
     static var previews: some View {

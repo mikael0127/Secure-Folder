@@ -13,6 +13,7 @@ enum AuthError: Error {
     case invalidPassword
     case userNotFound
     case weakPassword
+    case userExists
     case unknown
     
     init(authErrorCode: AuthErrorCode.Code) {
@@ -25,6 +26,8 @@ enum AuthError: Error {
             self = .weakPassword
         case .userNotFound:
             self = .userNotFound
+        case .emailAlreadyInUse:
+            self = .userExists
         default:
             self = .unknown
         }
@@ -40,6 +43,8 @@ enum AuthError: Error {
             return "It looks like there is no account associated with this email. Create an account to continue"
         case .weakPassword:
             return "Your password must be at least 6 characters in length. Please try again."
+        case .userExists:
+            return "An account with this email already exists. Please log in or use a different email."
         case .unknown:
             return "An unknown error occured. Please try again."
         }
