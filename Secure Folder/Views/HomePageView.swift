@@ -90,7 +90,7 @@ struct HomePageView: View {
                     do {
                         print("Timer ran out")
                         await viewModel.signOut(lockManager.isLocked)
-                        
+
                         print("Sign out done, state of islocked = \(lockManager.isLocked)")
                         inactivityTimerManager.resetTimer()
                     } catch {
@@ -103,8 +103,13 @@ struct HomePageView: View {
             // Reset the inactivity timer whenever there is user interaction
             inactivityTimerManager.resetTimer()
         }
+        // To check if timer works
+        .onReceive(inactivityTimerManager.$remainingTime, perform: { remainingTime in
+            print("Remaining Time: \(remainingTime)")
+        })
     }
 
+    
     // View displayed when folder is locked
     func lockedTabView() -> some View {
         TabView {
@@ -366,7 +371,9 @@ struct HomePageView: View {
                         .disabled(isLocked) // Disable the NavigationLink when locked
                         .opacity(0) // Set opacity to 0 to hide any possible empty space from the hidden arrow
 
-                        SettingsRowView(imageName: imageName, title: title, tintColor: isLocked ? .gray : tintColor)
+                        SettingsRowView(imageName: imageName,
+                                        title: title,
+                                        tintColor: isLocked ? .gray : tintColor)
                             .opacity(isLocked ? 0.5 : 1.0) // Adjust the opacity when locked
                     }
 

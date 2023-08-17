@@ -550,21 +550,31 @@ struct PhotosView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
                             Button {
-                                // ... Share selected images ...
+                                FileSharing.shared.message(selected)
                             } label: {
-                                // ... Share button content ...
+                                HStack {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+
+                                    Text("Share")
+                                }
                             }
-                            
+
                             Button {
                                 delete(urls: selected)
                             } label: {
-                                // ... Delete button content ...
+                                Image(systemName: "trash")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.red)
+                                    .frame(width: 20, height: 20)
                             }
-                            
                         }
-                        
                     }
                 }
+
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

@@ -14,6 +14,8 @@
 		135A1DD72A7E306E0000FF36 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD62A7E306E0000FF36 /* PhotosView.swift */; };
 		135A1DDA2A868ABD0000FF36 /* InactivityTimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DD92A868ABD0000FF36 /* InactivityTimerManager.swift */; };
 		135A1DDC2A878BC00000FF36 /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DDB2A878BC00000FF36 /* LockManager.swift */; };
+		135A1DE92A8D44B90000FF36 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DE72A8D44B90000FF36 /* VideoPlayerView.swift */; };
+		135A1DEA2A8D44B90000FF36 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DE82A8D44B90000FF36 /* VideoPlayerViewModel.swift */; };
 		139490AF2A61670100B2B460 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139490AE2A61670000B2B460 /* Security.framework */; };
 		139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139490B02A6A6FA400B2B460 /* HomepageRowView.swift */; };
 		8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C62592F2A36EAF600F647BA /* SplashScreenView.swift */; };
@@ -81,6 +83,8 @@
 		135A1DD62A7E306E0000FF36 /* PhotosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
 		135A1DD92A868ABD0000FF36 /* InactivityTimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityTimerManager.swift; sourceTree = "<group>"; };
 		135A1DDB2A878BC00000FF36 /* LockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockManager.swift; sourceTree = "<group>"; };
+		135A1DE72A8D44B90000FF36 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		135A1DE82A8D44B90000FF36 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		139490AE2A61670000B2B460 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		139490B02A6A6FA400B2B460 /* HomepageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomepageRowView.swift; path = "Secure Folder/Views/HomepageRowView.swift"; sourceTree = SOURCE_ROOT; };
 		139490B22A7D6EA600B2B460 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -194,6 +198,8 @@
 		8CA2DB912A440F3E003C1D70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				135A1DE72A8D44B90000FF36 /* VideoPlayerView.swift */,
+				135A1DE82A8D44B90000FF36 /* VideoPlayerViewModel.swift */,
 				135A1DD62A7E306E0000FF36 /* PhotosView.swift */,
 				8CBE8F8829E416A9000A52EC /* ContentView.swift */,
 				8C62592F2A36EAF600F647BA /* SplashScreenView.swift */,
@@ -462,10 +468,12 @@
 				8CD5BB032A3795D7002F0C2E /* LoginView.swift in Sources */,
 				8CD474652A3E254E0064784D /* ResetPasswordView.swift in Sources */,
 				8CA2DB962A443A5B003C1D70 /* ContactModel.swift in Sources */,
+				135A1DEA2A8D44B90000FF36 /* VideoPlayerViewModel.swift in Sources */,
 				135A1DD52A7E2D9A0000FF36 /* File.swift in Sources */,
 				8CBE8F8929E416A9000A52EC /* ContentView.swift in Sources */,
 				8CD5BB012A3795D7002F0C2E /* InputView.swift in Sources */,
 				8CD4746B2A3E2F240064784D /* AuthError.swift in Sources */,
+				135A1DE92A8D44B90000FF36 /* VideoPlayerView.swift in Sources */,
 				8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */,
 				8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */,
 				8CA2DB9D2A4445D6003C1D70 /* FilePicker.swift in Sources */,

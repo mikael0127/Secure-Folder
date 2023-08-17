@@ -13,12 +13,30 @@ class InactivityTimerManager: ObservableObject {
     private var lastInteractionDate: Date = Date()
 
     @Published var isActive: Bool = false
-
+    @Published var remainingTime: TimeInterval = 0
+    
+//    func startTimer(inactivityThreshold: TimeInterval, action: @escaping () async -> Void) {
+//        isActive = true
+//
+//        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+//            let timeSinceLastInteraction = Date().timeIntervalSince(self.lastInteractionDate)
+//            if timeSinceLastInteraction > inactivityThreshold {
+//                Task {
+//                    await action() // Execute the asynchronous action
+//                }
+//                self.invalidateTimer()
+//            }
+//        }
+//    }
     func startTimer(inactivityThreshold: TimeInterval, action: @escaping () async -> Void) {
         isActive = true
+        remainingTime = inactivityThreshold // Set remainingTime to inactivityThreshold initially
 
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             let timeSinceLastInteraction = Date().timeIntervalSince(self.lastInteractionDate)
+            let timeLeft = inactivityThreshold - timeSinceLastInteraction // Calculate time left
+            self.remainingTime = max(timeLeft, 0) // Update remainingTime, ensure it's not negative
+            
             if timeSinceLastInteraction > inactivityThreshold {
                 Task {
                     await action() // Execute the asynchronous action
@@ -27,6 +45,7 @@ class InactivityTimerManager: ObservableObject {
             }
         }
     }
+
     func resetTimer() {
         lastInteractionDate = Date()
     }
