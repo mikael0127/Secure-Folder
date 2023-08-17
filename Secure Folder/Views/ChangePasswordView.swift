@@ -37,7 +37,7 @@ struct ChangePasswordView: View {
             ZStack(alignment: .trailing) {
                 InputView(text: $confirmPassword,
                           title: "Confirm Password",
-                          placeholder: "Confirm your password",
+                          placeholder: "Confirm your new password",
                           isSecureField: true)
                 .autocapitalization(.none)
                 .padding(.bottom, 16)

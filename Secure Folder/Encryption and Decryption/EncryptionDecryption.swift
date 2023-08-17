@@ -505,7 +505,7 @@ public func publicKeyFromData(_ publicKeyData: Data) throws -> SecKey {
     let keyDict: [NSObject: NSObject] = [
         kSecAttrKeyType: kSecAttrKeyTypeRSA,
         kSecAttrKeyClass: kSecAttrKeyClassPublic,
-        kSecAttrKeySizeInBits: NSNumber(value: 2048), // Update with your key size
+        kSecAttrKeySizeInBits: NSNumber(value: 2048),
         kSecReturnPersistentRef: true as NSObject
     ]
 

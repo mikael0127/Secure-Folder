@@ -17,7 +17,6 @@
 		135A1DE92A8D44B90000FF36 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DE72A8D44B90000FF36 /* VideoPlayerView.swift */; };
 		135A1DEA2A8D44B90000FF36 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135A1DE82A8D44B90000FF36 /* VideoPlayerViewModel.swift */; };
 		139490AF2A61670100B2B460 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139490AE2A61670000B2B460 /* Security.framework */; };
-		139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139490B02A6A6FA400B2B460 /* HomepageRowView.swift */; };
 		8C6259302A36EAF900F647BA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C62592F2A36EAF600F647BA /* SplashScreenView.swift */; };
 		8C6259352A36F93D00F647BA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6259342A36F93D00F647BA /* FirebaseAnalytics */; };
 		8C6259372A36F93D00F647BA /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6259362A36F93D00F647BA /* FirebaseAnalyticsSwift */; };
@@ -86,7 +85,6 @@
 		135A1DE72A8D44B90000FF36 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		135A1DE82A8D44B90000FF36 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		139490AE2A61670000B2B460 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		139490B02A6A6FA400B2B460 /* HomepageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomepageRowView.swift; path = "Secure Folder/Views/HomepageRowView.swift"; sourceTree = SOURCE_ROOT; };
 		139490B22A7D6EA600B2B460 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		8C62592F2A36EAF600F647BA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		8C6259312A36F5BD00F647BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Secure Folder/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -184,7 +182,6 @@
 		8CA2DB8F2A440EDF003C1D70 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				139490B02A6A6FA400B2B460 /* HomepageRowView.swift */,
 				8CD5BAFA2A3795D7002F0C2E /* InputView.swift */,
 				8CD474662A3E2AB40064784D /* CustomProgressView.swift */,
 				8CD5BAFD2A3795D7002F0C2E /* SettingsRowView.swift */,
@@ -480,7 +477,6 @@
 				8CD474612A3D9D280064784D /* VideosView.swift in Sources */,
 				135A1DDA2A868ABD0000FF36 /* InactivityTimerManager.swift in Sources */,
 				8CD5BB052A3795D7002F0C2E /* User.swift in Sources */,
-				139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */,
 				8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */,
 				8CD5BB022A3795D7002F0C2E /* RegistrationView.swift in Sources */,
 				135A1DDC2A878BC00000FF36 /* LockManager.swift in Sources */,
