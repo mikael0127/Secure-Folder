@@ -229,7 +229,7 @@ struct HomePageView: View {
                         CustomRowView(title: "Videos",
                                       imageName: "video",
                                       tintColor: .blue,
-                                      destination: VideoView(),
+                                      destination: VideosView(),
                                       encryptAction: {
                                           Task {
                                               do {

@@ -1,48 +1,47 @@
 //
-//  DocumentView.swift
+//  VideosView.swift
 //  Secure Folder
 //
 //  Created by Bryan Loh on 15/6/23.
 //
 
 
-import Foundation
 import SwiftUI
-import QuickLook
+import AVKit
+import MediaPicker
 
-struct DocumentView: View {
+struct VideosView: View {
     @EnvironmentObject var inactivityTimerManager: InactivityTimerManager
     
     @State var urls: [URL] = []
-    @State var isShowingDocumentsPicker = false
+    @State var isShowingMediaPicker = false
     
     @State private var isSelecting: Bool = false
     @State private var selected: [URL] = []
-    @State private var url: URL?
+    
+    @State private var videoURL: URL?
     
     var selectButton: some View {
         Button {
-            isShowingDocumentsPicker = true
+            isShowingMediaPicker = true
         } label: {
             HStack {
-                Text("Add New Document(s)")
-                Image(systemName: "doc")
+                Text("Add New Video(s)")
+                Image(systemName: "video")
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .fileImporter(
-            isPresented: $isShowingDocumentsPicker,
-//            allowedContentTypes: [.text, .pdf, .audio, .epub, ],
-            allowedContentTypes: [.item],
-            allowsMultipleSelection: true)
-        { result in
-            do {
-                let urls = try result.get()
+        .mediaImporter(
+            isPresented: $isShowingMediaPicker,
+            allowedMediaTypes: .videos,
+            allowsMultipleSelection: true
+        ) { result in
+            switch result {
+            case .success(let urls):
                 save(urls: urls)
-            } catch {
-                print("failed to select docs: \(error.localizedDescription)")
+            case .failure(let error):
+                print(error)
             }
-            
         }
     }
     
@@ -51,9 +50,18 @@ struct DocumentView: View {
         List {
             Section {
                 ForEach(urls, id: \.absoluteString) { url in
-                    ZStack(alignment: .trailing) {
-                        Text(url.lastPathComponent)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                    ZStack(alignment: .topTrailing) {
+                        switch try! url.resourceValues(forKeys: [.contentTypeKey]).contentType! {
+                        case let contentType where contentType.conforms(to: .audiovisualContent):
+                            VideoPlayer(player: AVPlayer(url: url))
+                                .scaledToFit()
+                                .onTapGesture {
+                                    guard !isSelecting else { return }
+                                    videoURL = url
+                                }
+                        default:
+                            Text("Can't display \(url.lastPathComponent)")
+                        }
                         
                         if isSelecting {
                             ZStack {
@@ -69,16 +77,12 @@ struct DocumentView: View {
                             .opacity(selected.contains(url) ? 1 : 0)
                         }
                     }
-                    .contentShape(Rectangle())
                     .onTapGesture {
-                        if isSelecting {
-                            if selected.contains(url) {
-                                selected.removeAll(where: { $0 == url })
-                            } else {
-                                selected.append(url)
-                            }
+                        guard isSelecting else { return }
+                        if selected.contains(url) {
+                            selected.removeAll(where: { $0 == url })
                         } else {
-                            self.url = url
+                            selected.append(url)
                         }
                     }
                 }
@@ -89,9 +93,15 @@ struct DocumentView: View {
         .onAppear {
             read()
         }
-        .quickLookPreview($url)
+        .sheet(isPresented: Binding(get: {
+            videoURL != nil
+        }, set: { value in
+            if value == false { videoURL = nil }
+        })) {
+            VideoPlayerView(url: videoURL)
+        }
                 
-        .navigationTitle("Documents")
+        .navigationTitle("Videos")
         .toolbar {
             if !urls.isEmpty {
                 if isSelecting {
@@ -149,12 +159,9 @@ struct DocumentView: View {
         read()
     }
     
-    private let directoryName = "MainFolder/Documents"
+    private let directoryName = "MainFolder/Videos"
     
     private func save(url: URL) {
-        guard url.startAccessingSecurityScopedResource() else { return }
-        // We have to stop accessing the resource no matter what
-        defer { url.stopAccessingSecurityScopedResource() }
         let fileURLComponents = FileURLComponents(
             fileName: url.lastPathComponent,
             directoryName: directoryName,
@@ -189,9 +196,11 @@ struct DocumentView: View {
     
 }
 
-struct DocumentView_Previews: PreviewProvider {
+struct VideosView_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentView()
+        VideosView()
             .environmentObject(InactivityTimerManager())
     }
 }
+
+

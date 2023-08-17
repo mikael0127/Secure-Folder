@@ -43,7 +43,7 @@
 		8CD4745B2A3D9D100064784D /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474582A3D9D0F0064784D /* FolderManager.swift */; };
 		8CD4745C2A3D9D100064784D /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474592A3D9D0F0064784D /* DocumentView.swift */; };
 		8CD4745D2A3D9D100064784D /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745A2A3D9D0F0064784D /* HomePageView.swift */; };
-		8CD474612A3D9D280064784D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745F2A3D9D280064784D /* VideoView.swift */; };
+		8CD474612A3D9D280064784D /* VideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4745F2A3D9D280064784D /* VideosView.swift */; };
 		8CD474652A3E254E0064784D /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474642A3E254E0064784D /* ResetPasswordView.swift */; };
 		8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD474662A3E2AB40064784D /* CustomProgressView.swift */; };
 		8CD4746B2A3E2F240064784D /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD4746A2A3E2F240064784D /* AuthError.swift */; };
@@ -110,7 +110,7 @@
 		8CD474582A3D9D0F0064784D /* FolderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
 		8CD474592A3D9D0F0064784D /* DocumentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		8CD4745A2A3D9D0F0064784D /* HomePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
-		8CD4745F2A3D9D280064784D /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		8CD4745F2A3D9D280064784D /* VideosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosView.swift; sourceTree = "<group>"; };
 		8CD474642A3E254E0064784D /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		8CD474662A3E2AB40064784D /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		8CD4746A2A3E2F240064784D /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 				8CD5BAFB2A3795D7002F0C2E /* RegistrationView.swift */,
 				8CD4745A2A3D9D0F0064784D /* HomePageView.swift */,
 				8CD5BAF92A3795D7002F0C2E /* ProfileView.swift */,
-				8CD4745F2A3D9D280064784D /* VideoView.swift */,
+				8CD4745F2A3D9D280064784D /* VideosView.swift */,
 				8CD474592A3D9D0F0064784D /* DocumentView.swift */,
 				8CEAD24E2A42EBE1003423DB /* ChangePasswordView.swift */,
 				8CD474642A3E254E0064784D /* ResetPasswordView.swift */,
@@ -477,7 +477,7 @@
 				8CD5BB042A3795D7002F0C2E /* SettingsRowView.swift in Sources */,
 				8CD474672A3E2AB40064784D /* CustomProgressView.swift in Sources */,
 				8CA2DB9D2A4445D6003C1D70 /* FilePicker.swift in Sources */,
-				8CD474612A3D9D280064784D /* VideoView.swift in Sources */,
+				8CD474612A3D9D280064784D /* VideosView.swift in Sources */,
 				135A1DDA2A868ABD0000FF36 /* InactivityTimerManager.swift in Sources */,
 				8CD5BB052A3795D7002F0C2E /* User.swift in Sources */,
 				139490B12A6A6FA400B2B460 /* HomepageRowView.swift in Sources */,
