@@ -2,7 +2,7 @@
 //  AuthError.swift
 //  Secure Folder
 //
-//  Created by Mikael Denys Wijaya on 18/06/23.
+//  Created by Mikael Denys Wijaya on 10/06/23.
 //
 
 import Foundation
