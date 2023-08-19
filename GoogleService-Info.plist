@@ -3,32 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>727240642397-sq2tund1jk96m70o94cmh4ua6s2c5ohu.apps.googleusercontent.com</string>
+	<string>318463478846-2i9l9uj44tr7dk8vdnshnmeu9dh7ggpc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.727240642397-sq2tund1jk96m70o94cmh4ua6s2c5ohu</string>
+	<string>com.googleusercontent.apps.318463478846-2i9l9uj44tr7dk8vdnshnmeu9dh7ggpc</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAgCs7_-ZtqTuNGJC8enCxAB99ZyCZGXPM</string>
+	<string>AIzaSyC33-OdfgwCPmAUILdFE8UZBV6ZmTHqkvc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>727240642397</string>
+	<string>318463478846</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>test.Secure-Folder</string>
+	<string>secureFolderIOS.Secure-Folder</string>
 	<key>PROJECT_ID</key>
-	<string>sfolder-ios</string>
+	<string>sfolder-fyp-ios</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sfolder-ios.appspot.com</string>
+	<string>sfolder-fyp-ios.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:727240642397:ios:61df845890736a1ced22b4</string>
+	<string>1:318463478846:ios:727ec35f0fe34378c6156f</string>
 </dict>
 </plist>

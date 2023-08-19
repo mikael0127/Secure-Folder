@@ -2,7 +2,7 @@
 //  InputView.swift
 //  Secure Folder
 //
-//  Created by Mikael Denys Wijaya on 09/06/23.
+//  Created by Mikael Denys Widjaja on 09/06/23.
 //
 
 import SwiftUI
