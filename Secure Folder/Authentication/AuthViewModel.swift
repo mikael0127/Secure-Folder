@@ -124,6 +124,22 @@ class AuthViewModel: ObservableObject {
             deleteUserData()
             self.currentUser = nil
             self.userSession = nil
+            
+            // Check and delete "MainFolder" or "MainFolder.encrypted" from the Documents directory
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            let mainFolderURL = documentsDirectory.appendingPathComponent("MainFolder")
+            let encryptedFolderURL = documentsDirectory.appendingPathComponent("MainFolder.encrypted")
+
+            if FileManager.default.fileExists(atPath: mainFolderURL.path) {
+                try FileManager.default.removeItem(at: mainFolderURL)
+                print("MainFolder deleted successfully.")
+            } else if FileManager.default.fileExists(atPath: encryptedFolderURL.path) {
+                try FileManager.default.removeItem(at: encryptedFolderURL)
+                print("MainFolder.encrypted deleted successfully.")
+            } else {
+                print("Neither MainFolder nor MainFolder.encrypted found.")
+            }
         } catch {
             print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
         }
