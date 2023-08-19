@@ -74,8 +74,8 @@ class AuthViewModel: ObservableObject {
             // Print keys
             let publicKeyString = publicKeyData.base64EncodedString(options: [])
             let privateKeyString = privateKeyData.base64EncodedString(options: [])
-            print("Public Key: \(publicKeyString)")
-            print("Private Key: \(privateKeyString)")
+            //print("Public Key: \(publicKeyString)")
+            //print("Private Key: \(privateKeyString)")
             
             await fetchUser()
             isLoading = false
